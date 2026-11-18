@@ -360,16 +360,16 @@ const Semester = () => {
     if (today < start)
       return {
         status: "Upcoming",
-        color: "text-blue-600 bg-blue-100   :bg-blue-900/30",
+        color: " $n=$args; ''   $n=$args; '' ",
       };
     if (today >= start && today <= end)
       return {
         status: "Active",
-        color: "text-green-600 bg-green-100   :bg-green-900/30",
+        color: " $n=$args; ''   $n=$args; '' ",
       };
     return {
       status: "Completed",
-      color: "text-slate-500 bg-slate-100   :bg-slate-700",
+      color: "text-slate-500 bg-slate-100",
     };
   };
 
@@ -403,23 +403,23 @@ const Semester = () => {
   };
 
   return (
-    <section className="min-h-screen bg-white    p-6 transition-colors">
-      <div className="container mx-auto max-w-7xl">
+    <section className="min-h-screen bg-white transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900   :text-white mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold font-display text-slate-900 mb-2">
             Semester Management
           </h1>
-          <p className="text-slate-600   :text-gray-400">
+          <p className="text-slate-600">
             Create and manage academic semesters (Spring, Summer, Fall)
           </p>
         </div>
 
         {/* Success Message */}
         {successMessage && (
-          <div className="mb-6 flex items-center gap-2 p-4 bg-green-100   :bg-green-900/30 border border-green-200   :border-green-800 rounded-lg">
-            <CheckCircle className="w-5 h-5 text-green-600" />
-            <span className="text-green-800   :text-green-200">
+          <div className="mb-6 flex items-center gap-2 p-4  $n=$args; ''  border  $n=$args; ''  rounded-xl">
+            <CheckCircle className="w-5 h-5  $n=$args; '' " />
+            <span className=" $n=$args; '' ">
               {successMessage}
             </span>
           </div>
@@ -428,15 +428,15 @@ const Semester = () => {
         {/* Stats and Create Button */}
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex gap-6 text-sm">
-            <div className="text-slate-600   -400">
+            <div className="text-slate-600">
               Total:{" "}
-              <span className="font-semibold text-slate-900   :text-white">
+              <span className="font-semibold text-slate-900">
                 {semesters.length}
               </span>
             </div>
-            <div className="text-slate-600   -400">
+            <div className="text-slate-600">
               Active:{" "}
-              <span className="font-semibold text-green-600">
+              <span className="font-semibold  $n=$args; '' ">
                 {
                   semesters.filter(
                     (s) => getSemesterStatus(s).status === "Active"
@@ -444,9 +444,9 @@ const Semester = () => {
                 }
               </span>
             </div>
-            <div className="text-slate-600   -400">
+            <div className="text-slate-600">
               Upcoming:{" "}
-              <span className="font-semibold text-blue-600">
+              <span className="font-semibold  $n=$args; '' ">
                 {
                   semesters.filter(
                     (s) => getSemesterStatus(s).status === "Upcoming"
@@ -459,7 +459,7 @@ const Semester = () => {
           <button
             onClick={handleCreateNew}
             disabled={!canCreateNext()}
-            className="px-6 py-3 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#691832] disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-6 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
             title={
               !canCreateNext()
                 ? "Cannot create semesters for past years"
@@ -483,7 +483,7 @@ const Semester = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading ? (
             <div className="col-span-full text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#7b1e3c]"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
               <div className="text-slate-500 mt-2">Loading semesters...</div>
             </div>
           ) : semesters.length === 0 ? (
@@ -497,7 +497,7 @@ const Semester = () => {
               </div>
               <button
                 onClick={handleCreateNew}
-                className="px-4 py-2 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#691832] transition-colors"
+                className="px-4 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
               >
                 Create First Semester
               </button>
@@ -508,11 +508,11 @@ const Semester = () => {
               return (
                 <div
                   key={semester._id}
-                  className="bg-white   :bg-slate-800 rounded-lg p-6 shadow border border-gray-200   :border-slate-700 hover:shadow-md transition-all hover:scale-105"
+                  className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100 animate-fade-up hover:shadow-md transition-all hover:scale-105"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-xl font-semibold text-slate-900   :text-white capitalize">
+                      <h3 className="text-xl font-semibold text-slate-900 capitalize">
                         {semester.season} {semester.year}
                       </h3>
                       <div
@@ -524,14 +524,14 @@ const Semester = () => {
                     <div className="flex gap-1">
                       <button
                         onClick={() => handleView(semester)}
-                        className="p-2 text-blue-600 hover:bg-blue-100   :hover:bg-blue-900/30 rounded transition-colors"
+                        className="p-2 text-brand-600 hover:bg-brand-50 rounded transition-colors"
                         title="View Details"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleEdit(semester)}
-                        className="p-2 text-amber-600 hover:bg-amber-100   :hover:bg-amber-900/30 rounded transition-colors"
+                        className="p-2 text-brand-500 hover:bg-brand-50 rounded transition-colors"
                         title="Edit Semester"
                       >
                         <Edit className="w-4 h-4" />
@@ -539,7 +539,7 @@ const Semester = () => {
                       <button
                         onClick={() => handleDelete(semester._id)}
                         disabled={deleteLoading === semester._id}
-                        className="p-2 text-red-600 hover:bg-red-100   :hover:bg-red-900/30 rounded transition-colors disabled:opacity-50"
+                        className="p-2 text-brand-700 hover:bg-brand-100 rounded transition-colors disabled:opacity-50"
                         title="Delete Semester"
                       >
                         {deleteLoading === semester._id ? (
@@ -552,16 +552,16 @@ const Semester = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-slate-600   -400">
-                      <Calendar className="w-4 h-4 text-[#7b1e3c]" />
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="w-4 h-4 text-brand-600" />
                       <span>Start: {formatDate(semester.startDate)}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600   -400">
-                      <Calendar className="w-4 h-4 text-[#7b1e3c]" />
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="w-4 h-4 text-brand-600" />
                       <span>End: {formatDate(semester.endDate)}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600   -400">
-                      <Clock className="w-4 h-4 text-[#7b1e3c]" />
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Clock className="w-4 h-4 text-brand-600" />
                       <span>
                         Duration:{" "}
                         {getSemesterDuration(
@@ -583,14 +583,14 @@ const Semester = () => {
             className="fixed inset-0 flex items-center justify-center z-50 p-4"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
           >
-            <div className="bg-white   :bg-slate-800 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                <h3 className="text-lg font-semibold text-slate-900">
                   {editingSemester ? "Edit Semester" : "Create New Semester"}
                 </h3>
                 <button
                   onClick={closeModal}
-                  className="text-slate-500 hover:text-slate-700   :hover:text-slate-300"
+                  className="text-slate-500 hover:text-slate-700"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -598,8 +598,8 @@ const Semester = () => {
 
               {/* Show next expected semester info */}
               {!editingSemester && (
-                <div className="mb-4 p-3 bg-blue-50   :bg-blue-900/20 rounded-lg border border-blue-200   :border-blue-800">
-                  <div className="text-sm text-blue-800   :text-blue-200">
+                <div className="mb-4 p-3  $n=$args; ''  rounded-xl border  $n=$args; '' ">
+                  <div className="text-sm  $n=$args; '' ">
                     <strong>Next Expected:</strong>{" "}
                     {getNextSemester().season.charAt(0).toUpperCase() +
                       getNextSemester().season.slice(1)}{" "}
@@ -610,14 +610,14 @@ const Semester = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Season *
                   </label>
                   <select
                     name="season"
                     value={formData.season}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300   :border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]   :bg-slate-700   :text-white capitalize"
+                    className="w-full px-3 py-2 border border-brand-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 capitalize"
                     required
                   >
                     <option value="">Select season</option>
@@ -626,19 +626,19 @@ const Semester = () => {
                     <option value="fall">Fall</option>
                   </select>
                   {formErrors.season && (
-                    <div className="text-red-600 text-xs mt-1 flex items-center gap-1">
+                    <div className="text-brand-700 text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.season}
                     </div>
                   )}
                   {formErrors.semester && (
-                    <div className="text-red-600 text-xs mt-1 flex items-center gap-1">
+                    <div className="text-brand-700 text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.semester}
                     </div>
                   )}
                   {formErrors.sequence && (
-                    <div className="text-amber-600 text-xs mt-1 flex items-center gap-1">
+                    <div className=" $n=$args; ''  text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.sequence}
                     </div>
@@ -646,14 +646,14 @@ const Semester = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Year *
                   </label>
                   <select
                     name="year"
                     value={formData.year}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300   :border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]   :bg-slate-700   :text-white"
+                    className="w-full px-3 py-2 border border-brand-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     required
                   >
                     {yearOptions.map((year) => (
@@ -663,7 +663,7 @@ const Semester = () => {
                     ))}
                   </select>
                   {formErrors.year && (
-                    <div className="text-red-600 text-xs mt-1 flex items-center gap-1">
+                    <div className="text-brand-700 text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.year}
                     </div>
@@ -671,7 +671,7 @@ const Semester = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Start Date *
                   </label>
                   <input
@@ -684,11 +684,11 @@ const Semester = () => {
                         ? new Date().toISOString().split("T")[0]
                         : undefined
                     }
-                    className="w-full px-3 py-2 border border-gray-300   :border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]   :bg-slate-700   :text-white"
+                    className="w-full px-3 py-2 border border-brand-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     required
                   />
                   {formErrors.startDate && (
-                    <div className="text-red-600 text-xs mt-1 flex items-center gap-1">
+                    <div className="text-brand-700 text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.startDate}
                     </div>
@@ -696,7 +696,7 @@ const Semester = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     End Date *
                   </label>
                   <input
@@ -705,17 +705,17 @@ const Semester = () => {
                     value={formData.endDate}
                     onChange={handleInputChange}
                     min={formData.startDate || undefined}
-                    className="w-full px-3 py-2 border border-gray-300   :border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]   :bg-slate-700   :text-white"
+                    className="w-full px-3 py-2 border border-brand-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     required
                   />
                   {formErrors.endDate && (
-                    <div className="text-red-600 text-xs mt-1 flex items-center gap-1">
+                    <div className="text-brand-700 text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.endDate}
                     </div>
                   )}
                   {formErrors.duration && (
-                    <div className="text-amber-600 text-xs mt-1 flex items-center gap-1">
+                    <div className=" $n=$args; ''  text-xs mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {formErrors.duration}
                     </div>
@@ -726,8 +726,8 @@ const Semester = () => {
                 {formData.startDate &&
                   formData.endDate &&
                   new Date(formData.endDate) > new Date(formData.startDate) && (
-                    <div className="p-3 bg-slate-50   :bg-slate-700 rounded-lg">
-                      <div className="text-sm text-slate-600   -400">
+                    <div className="p-3 bg-slate-50 rounded-xl">
+                      <div className="text-sm text-slate-600">
                         <strong>Duration Preview:</strong>{" "}
                         {getSemesterDuration(
                           formData.startDate,
@@ -739,8 +739,8 @@ const Semester = () => {
 
                 {/* General Error */}
                 {formErrors.general && (
-                  <div className="p-3 bg-red-50   :bg-red-900/20 rounded-lg border border-red-200   :border-red-800">
-                    <div className="text-sm text-red-800   :text-red-200 flex items-center gap-1">
+                  <div className="p-3  $n=$args; ''  rounded-xl border  $n=$args; '' ">
+                    <div className="text-sm  $n=$args; ''  flex items-center gap-1">
                       <AlertCircle className="w-4 h-4" />
                       {formErrors.general}
                     </div>
@@ -752,7 +752,7 @@ const Semester = () => {
                     type="button"
                     onClick={closeModal}
                     disabled={submitting}
-                    className="flex-1 px-4 py-2 border border-gray-300   :border-slate-600 rounded-md text-slate-700   -300 hover:bg-gray-50   :hover:bg-slate-700 transition-colors disabled:opacity-50"
+                    className="flex-1 px-4 py-2 border border-brand-100 rounded-xl text-slate-700 hover:bg-brand-50/30 transition-colors disabled:opacity-50"
                   >
                     Cancel
                   </button>
@@ -760,7 +760,7 @@ const Semester = () => {
                     type="button"
                     onClick={handleSubmit}
                     disabled={submitting || Object.keys(formErrors).length > 0}
-                    className="flex-1 px-4 py-2 bg-[#7b1e3c] text-white rounded-md hover:bg-[#691832] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {submitting && (
                       <div className="w-4 h-4 animate-spin border-2 border-current border-t-transparent rounded-full" />
@@ -779,14 +779,14 @@ const Semester = () => {
             className="fixed inset-0 flex items-center justify-center z-50 p-4"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
           >
-            <div className="bg-white   :bg-slate-800 rounded-lg p-6 w-full max-w-md">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl w-full max-w-md">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                <h3 className="text-lg font-semibold text-slate-900">
                   Semester Details
                 </h3>
                 <button
                   onClick={closeViewModal}
-                  className="text-slate-500 hover:text-slate-700   :hover:text-slate-300"
+                  className="text-slate-500 hover:text-slate-700"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -794,16 +794,16 @@ const Semester = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Semester
                   </label>
-                  <div className="text-slate-900   :text-white capitalize text-lg font-semibold">
+                  <div className="text-slate-900 capitalize text-lg font-semibold">
                     {viewingSemester.season} {viewingSemester.year}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Status
                   </label>
                   <div
@@ -816,28 +816,28 @@ const Semester = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Start Date
                   </label>
-                  <div className="text-slate-900   :text-white">
+                  <div className="text-slate-900">
                     {formatDate(viewingSemester.startDate)}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     End Date
                   </label>
-                  <div className="text-slate-900   :text-white">
+                  <div className="text-slate-900">
                     {formatDate(viewingSemester.endDate)}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700   -300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
                     Duration
                   </label>
-                  <div className="text-slate-900   :text-white">
+                  <div className="text-slate-900">
                     {getSemesterDuration(
                       viewingSemester.startDate,
                       viewingSemester.endDate
@@ -846,15 +846,15 @@ const Semester = () => {
                 </div>
 
                 {/* Additional Info */}
-                <div className="pt-4 border-t border-gray-200   :border-slate-700">
-                  <div className="text-xs text-slate-500   -400">
+                <div className="pt-4 border-t border-brand-100">
+                  <div className="text-xs text-slate-500">
                     Created:{" "}
                     {viewingSemester.createdAt
                       ? formatDate(viewingSemester.createdAt)
                       : "N/A"}
                   </div>
                   {viewingSemester.updatedAt && (
-                    <div className="text-xs text-slate-500   -400 mt-1">
+                    <div className="text-xs text-slate-500 mt-1">
                       Last updated: {formatDate(viewingSemester.updatedAt)}
                     </div>
                   )}
@@ -863,7 +863,7 @@ const Semester = () => {
                 <div className="flex gap-3 mt-6">
                   <button
                     onClick={closeViewModal}
-                    className="flex-1 px-4 py-2 bg-slate-100   :bg-slate-700 text-slate-700   -300 rounded-md hover:bg-slate-200   :hover:bg-slate-600 transition-colors"
+                    className="flex-1 px-4 py-2 bg-brand-50 text-brand-700 rounded-xl hover:bg-slate-200 transition-colors"
                   >
                     Close
                   </button>
@@ -872,7 +872,7 @@ const Semester = () => {
                       closeViewModal();
                       handleEdit(viewingSemester);
                     }}
-                    className="flex-1 px-4 py-2 bg-[#7b1e3c] text-white rounded-md hover:bg-[#691832] transition-colors"
+                    className="flex-1 px-4 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
                   >
                     Edit Semester
                   </button>

@@ -128,26 +128,27 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="p-6 bg-white    rounded-lg shadow">
-        <p className="text-gray-500   :text-gray-400">Loading profile...</p>
+      <div className="p-6 bg-white    rounded-2xl shadow-sm">
+        <p className="text-slate-500">Loading profile...</p>
       </div>
     );
   }
 
   if (!student) {
     return (
-      <div className="p-6 bg-white    rounded-lg shadow">
-        <p className="text-gray-500   :text-gray-400">Profile not found</p>
+      <div className="p-6 bg-white    rounded-2xl shadow-sm">
+        <p className="text-slate-500">Profile not found</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-50    p-4 sm:p-8">
-      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+    <div className="w-full min-h-screen bg-brand-50/40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
         {/* LEFT: Update Profile */}
-        <div className="flex-1 bg-white    rounded-lg shadow border border-gray-200   :border-gray-700 p-6 sm:p-8">
-          <h2 className="text-2xl font-bold text-slate-900   :text-white mb-6">
+        <div className="flex-1 bg-white    rounded-2xl shadow-sm border border-brand-100 p-6 sm:p-8">
+          <h2 className="font-display text-2xl font-bold text-brand-700 mb-6">
             Update <span className="text-[#7b1e3c]">Profile</span>
           </h2>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -162,7 +163,7 @@ const Profile = () => {
               "photoUrl",
             ].map((field) => (
               <div key={field}>
-                <label className="block text-sm font-medium mb-1   :text-gray-300">
+                <label className="block text-sm font-medium mb-1">
                   {field === "cgpa"
                     ? "CGPA"
                     : field === "creditsCompleted"
@@ -183,22 +184,22 @@ const Profile = () => {
                   name={field}
                   value={formData[field]}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg   :bg-slate-800   :text-white ${
+                  className={`w-full px-3 py-2 border rounded-2xl ${
                     errors[field]
-                      ? "border-red-500"
-                      : "border-gray-300   :border-gray-600"
+                      ? "border-brand-500"
+                      : "border-brand-200"
                   }`}
                   disabled={field === "email"}
                 />
                 {errors[field] && (
-                  <p className="mt-1 text-sm text-red-600   :text-red-400">
+                  <p className="mt-1 text-sm text-brand-600">
                     {errors[field]}
                   </p>
                 )}
               </div>
             ))}
             <div>
-              <label className="block text-sm font-medium mb-1   :text-gray-300">
+              <label className="block text-sm font-medium mb-1">
                 Research Interest
               </label>
               <textarea
@@ -206,14 +207,14 @@ const Profile = () => {
                 value={formData.researchInterest}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-3 py-2 border rounded-lg   :bg-slate-800   :text-white border-gray-300   :border-gray-600"
+                className="w-full px-3 py-2 border rounded-2xl border-brand-200"
                 disabled={updating}
               />
             </div>
             <button
               type="submit"
               disabled={updating}
-              className="px-6 py-2 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#651730] transition disabled:opacity-50"
+              className="px-6 py-2 bg-[#7b1e3c] text-white rounded-2xl hover:bg-[#651730] transition disabled:opacity-50"
             >
               {updating ? "Saving..." : "Save Changes"}
             </button>
@@ -221,8 +222,8 @@ const Profile = () => {
         </div>
 
         {/* RIGHT: Profile Overview */}
-        <div className="flex-1 bg-white    rounded-lg shadow border border-gray-200   :border-gray-700 p-6 sm:p-8 flex flex-col justify-start">
-          <h2 className="text-2xl font-bold text-slate-900   :text-white mb-6">
+        <div className="flex-1 bg-white    rounded-2xl shadow-sm border border-brand-100 p-6 sm:p-8 flex flex-col justify-start">
+          <h2 className="font-display text-2xl font-bold text-brand-700 mb-6">
             Profile <span className="text-[#7b1e3c]">Overview</span>
           </h2>
 
@@ -234,17 +235,17 @@ const Profile = () => {
                 className="w-20 h-20 rounded-full object-cover border-2 border-[#7b1e3c]"
               />
             ) : (
-              <div className="w-20 h-20 rounded-full bg-gray-200   :bg-gray-700 flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-600   :text-gray-300">
+              <div className="w-20 h-20 rounded-full bg-brand-100 flex items-center justify-center">
+                <span className="text-lg font-semibold text-slate-600">
                   {student.name?.charAt(0)}
                 </span>
               </div>
             )}
             <div>
-              <h3 className="text-lg font-semibold text-slate-900   :text-white">
+              <h3 className="text-lg font-semibold text-brand-700">
                 {student.name}
               </h3>
-              <p className="text-sm text-gray-600   :text-gray-400">
+              <p className="text-sm text-slate-600">
                 {student.email}
               </p>
             </div>
@@ -252,50 +253,50 @@ const Profile = () => {
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 Student ID
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.studentId}
               </dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 Department
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.department}
               </dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 Phone
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.phone || "—"}
               </dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 CGPA
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.cgpa}
               </dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 Credits Completed
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.creditsCompleted}
               </dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-500">
                 Research Interest
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-brand-700">
                 {student.researchInterest || "—"}
               </dd>
             </div>
@@ -303,6 +304,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

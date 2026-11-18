@@ -151,7 +151,7 @@ const FindGroup = () => {
   };
 
   const checkMembershipAPI = async (studentMongoId) => {
-    // Prefer backend, but fallback to local if endpoint doesn’t exist
+    // Prefer backend, but fallback to local if endpoint doesnâ€™t exist
     try {
       const res = await fetch(
         `${API_BASE}/groups/check-membership/${studentMongoId}`
@@ -166,7 +166,7 @@ const FindGroup = () => {
     return checkMembershipLocal(studentMongoId);
   };
 
-  // Search student by studentId and ensure they’re not already in a group
+  // Search student by studentId and ensure theyâ€™re not already in a group
   const searchStudent = async () => {
     setSearchError("");
     setSearchedUser(null);
@@ -203,7 +203,7 @@ const FindGroup = () => {
     }
   };
 
-  // Send invite to the searched user (only for the admin’s own group)
+  // Send invite to the searched user (only for the adminâ€™s own group)
   const sendJoinInvite = async () => {
     if (!searchedUser?._id || !myAdminGroup?._id) return;
     try {
@@ -293,14 +293,15 @@ const FindGroup = () => {
   };
 
   return (
-    <section className="px-6 py-10 max-w-6xl mx-auto">
+    <section className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-fade-up">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-semibold text-slate-900   :text-white">
+          <h1 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900">
             Find Groups
           </h1>
-          <p className="text-slate-600   :text-gray-300 mt-1">
+          <p className="text-slate-600 mt-1">
             Browse existing research groups and join one that matches your
             interests.
           </p>
@@ -310,13 +311,13 @@ const FindGroup = () => {
         <div>
           {routeUserId && !iAmInAnyGroup ? (
             <NavLink to={`/create-group/${routeUserId}`}>
-              <button className="px-4 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition">
+              <button className="px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition">
                 Create Group
               </button>
             </NavLink>
           ) : (
             <button
-              className="px-4 py-2 rounded-lg bg-gray-300 text-gray-700   :bg-slate-700   :text-gray-300 cursor-not-allowed"
+              className="px-4 py-2 rounded-xl bg-slate-200 text-slate-500 cursor-not-allowed"
               disabled
               title={
                 !routeUserId
@@ -332,10 +333,10 @@ const FindGroup = () => {
 
       {/* Admin-only: invite a student */}
       {dbUser?.role === "student" && myAdminGroup && (
-        <div className="mt-6 p-4 rounded-2xl border border-gray-200   :border-gray-700 bg-white    shadow-sm">
-          <h2 className="font-semibold text-slate-900   :text-white mb-2">
+        <div className="mt-6 p-4 rounded-3xl border border-brand-100 bg-white    shadow-md">
+          <h2 className="font-semibold text-slate-900 mb-2">
             Invite a Student to{" "}
-            <span className="text-[#7b1e3c]">{myAdminGroup.name}</span>
+            <span className="text-brand-600">{myAdminGroup.name}</span>
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
@@ -344,42 +345,42 @@ const FindGroup = () => {
               value={searchId}
               onChange={(e) => setSearchId(e.target.value)}
               placeholder="Enter Student ID (e.g., 22101234)"
-              className="flex-1 px-3 py-2 rounded-lg border border-gray-300   :border-gray-700 bg-white   :bg-slate-800 text-slate-900   :text-gray-100 outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+              className="flex-1 px-3 py-2 rounded-xl border border-brand-100 bg-white text-slate-900 outline-none focus:ring-2 focus:ring-brand-600"
             />
             <button
               onClick={searchStudent}
               disabled={searching || !searchId.trim()}
-              className="px-4 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition disabled:opacity-50"
             >
-              {searching ? "Searching…" : "Search"}
+              {searching ? "Searchingâ€¦" : "Search"}
             </button>
           </div>
 
           {searchError && (
-            <p className="mt-2 text-sm text-rose-600   :text-rose-400">
+            <p className="mt-2 text-sm text-brand-600">
               {searchError}
             </p>
           )}
 
           {searchedUser && (
-            <div className="mt-4 p-3 rounded-xl border border-gray-200   :border-gray-700 bg-gray-50   :bg-slate-800">
+            <div className="mt-4 p-3 rounded-2xl border border-brand-100 bg-brand-50">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <div className="font-medium text-slate-900   :text-white">
+                  <div className="font-medium text-slate-900">
                     {searchedUser.name || "Unnamed"}
                   </div>
-                  <div className="text-sm text-slate-600   :text-gray-300">
+                  <div className="text-sm text-slate-600">
                     Student ID: {searchedUser.studentId || "N/A"}
                   </div>
                   {searchedUser.email && (
-                    <div className="text-sm text-slate-600   :text-gray-300">
+                    <div className="text-sm text-slate-600">
                       {searchedUser.email}
                     </div>
                   )}
                 </div>
                 <button
                   onClick={sendJoinInvite}
-                  className="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition"
+                  className="px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition"
                 >
                   Send Join Request
                 </button>
@@ -391,18 +392,18 @@ const FindGroup = () => {
 
       {/* Admin-only: incoming join requests (students -> your group) */}
       {dbUser?.role === "student" && myAdminGroup && (
-        <div className="mt-6 p-4 rounded-2xl border border-gray-200   :border-gray-700 bg-white    shadow-sm">
-          <h2 className="font-semibold text-slate-900   :text-white mb-3">
+        <div className="mt-6 p-4 rounded-3xl border border-brand-100 bg-white    shadow-md">
+          <h2 className="font-semibold text-slate-900 mb-3">
             Join Requests to{" "}
-            <span className="text-[#7b1e3c]">{myAdminGroup.name}</span>
+            <span className="text-brand-600">{myAdminGroup.name}</span>
           </h2>
 
           {loadingRequests ? (
-            <div className="text-slate-600   :text-gray-300">
-              Loading requests…
+            <div className="text-slate-600">
+              Loading requestsâ€¦
             </div>
           ) : adminRequests.length === 0 ? (
-            <div className="text-slate-600   :text-gray-300">
+            <div className="text-slate-600">
               No pending requests right now.
             </div>
           ) : (
@@ -412,22 +413,22 @@ const FindGroup = () => {
                 return (
                   <li
                     key={sid}
-                    className="p-3 rounded-lg border border-gray-200   :border-gray-700 bg-slate-50   :bg-slate-800"
+                    className="p-3 rounded-xl border border-brand-100 bg-brand-50"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="font-medium text-slate-900   :text-white">
+                        <div className="font-medium text-slate-900">
                           {r.name || "Unnamed Student"}
                         </div>
-                        <div className="text-sm text-slate-600   :text-gray-300">
+                        <div className="text-sm text-slate-600">
                           Student ID: {r.studentIdStr || "N/A"}
                         </div>
                         {r.email && (
-                          <div className="text-sm text-slate-600   :text-gray-300">
+                          <div className="text-sm text-slate-600">
                             {r.email}
                           </div>
                         )}
-                        <div className="text-xs text-slate-500   :text-gray-400 mt-1">
+                        <div className="text-xs text-slate-500 mt-1">
                           Requested on{" "}
                           {r.requestedAt
                             ? new Date(r.requestedAt).toLocaleString()
@@ -439,15 +440,15 @@ const FindGroup = () => {
                         <button
                           disabled={acting[sid]}
                           onClick={() => actOnRequest(sid, "accept")}
-                          className="px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-60"
+                          className="px-3 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-60"
                           title="Accept and add to group"
                         >
-                          {acting[sid] ? "Working…" : "Accept"}
+                          {acting[sid] ? "Workingâ€¦" : "Accept"}
                         </button>
                         <button
                           disabled={acting[sid]}
                           onClick={() => actOnRequest(sid, "reject")}
-                          className="px-3 py-2 rounded-lg bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-60"
+                          className="px-3 py-2 rounded-xl bg-white text-brand-600 border border-brand-600 hover:bg-brand-50 disabled:opacity-60"
                           title="Reject this request"
                         >
                           Reject
@@ -464,23 +465,23 @@ const FindGroup = () => {
 
       {/* Global banner if already in a group (info only; admins can still invite) */}
       {iAmInAnyGroup && (
-        <div className="mt-4 p-3 rounded-lg bg-amber-50 text-amber-800   :bg-amber-500/10   :text-amber-300">
-          You already belong to a group. You can’t join or create another group.
+        <div className="mt-4 p-3 rounded-xl bg-brand-50 border border-brand-100 text-brand-700">
+          You already belong to a group. You canâ€™t join or create another group.
         </div>
       )}
 
       {/* List of groups */}
-      <div className="mt-6 rounded-2xl border border-gray-200   :border-gray-700 bg-white    shadow-sm">
+      <div className="mt-6 rounded-3xl border border-brand-100 bg-white    shadow-md">
         {loadingUser || loadingGroups ? (
-          <div className="p-6 text-slate-600   :text-gray-300">
-            Loading groups…
+          <div className="p-6 text-slate-600">
+            Loading groupsâ€¦
           </div>
         ) : !user ? (
-          <div className="p-6 text-amber-700   :text-amber-300">
+          <div className="p-6 text-brand-700">
             Please log in to view and request to join groups.
           </div>
         ) : groups.length === 0 ? (
-          <div className="p-6 text-slate-600   :text-gray-300">
+          <div className="p-6 text-slate-600">
             No groups yet. Be the first to create one!
           </div>
         ) : (
@@ -489,8 +490,8 @@ const FindGroup = () => {
               const gid = String(g._id);
               const { isAdmin, isMember, full } = joinableState(g);
 
-              // Disable “Send Join Request” if: user id not loaded, they’re admin/member, group full,
-              // already requesting, or already in some group (can’t join another).
+              // Disable â€œSend Join Requestâ€ if: user id not loaded, theyâ€™re admin/member, group full,
+              // already requesting, or already in some group (canâ€™t join another).
               const disabled =
                 !myId ||
                 isAdmin ||
@@ -502,13 +503,13 @@ const FindGroup = () => {
               return (
                 <li
                   key={gid}
-                  className="rounded-xl border border-gray-200   :border-gray-700 p-4 bg-white    hover:shadow-sm transition"
+                  className="rounded-2xl border border-brand-100 p-4 bg-white    hover:shadow-lg transition"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                    <h3 className="text-lg font-semibold text-slate-900">
                       {g.name}
                     </h3>
-                    <span className="text-xs px-2 py-1 rounded bg-gray-100   :bg-slate-800 text-slate-700   :text-gray-200">
+                    <span className="text-xs px-2 py-1 rounded bg-brand-50 text-brand-600">
                       {Array.isArray(g.members) ? g.members.length : 0}/
                       {g.maxMembers || 5}
                     </span>
@@ -521,7 +522,7 @@ const FindGroup = () => {
                         {g.researchInterests.map((tag) => (
                           <span
                             key={`${gid}-${tag}`}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-[#7b1e3c]/10 text-[#7b1e3c]"
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-brand-100 text-brand-600"
                           >
                             {tag}
                           </span>
@@ -532,26 +533,26 @@ const FindGroup = () => {
                   {/* Status badges */}
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                     {g.assignedSupervisor ? (
-                      <span className="px-2 py-1 rounded bg-emerald-100 text-emerald-800   :bg-emerald-500/15   :text-emerald-300">
+                      <span className="px-2 py-1 rounded bg-brand-600 text-white">
                         Supervisor Assigned
                       </span>
                     ) : (
-                      <span className="px-2 py-1 rounded bg-amber-100 text-amber-800   :bg-amber-500/15   :text-amber-300">
+                      <span className="px-2 py-1 rounded bg-brand-100 text-brand-600">
                         No Supervisor
                       </span>
                     )}
                     {isAdmin && (
-                      <span className="px-2 py-1 rounded bg-blue-100 text-blue-800   :bg-blue-500/15   :text-blue-300">
+                      <span className="px-2 py-1 rounded bg-brand-50 border border-brand-200 text-brand-700">
                         You are the Admin
                       </span>
                     )}
                     {isMember && !isAdmin && (
-                      <span className="px-2 py-1 rounded bg-purple-100 text-purple-800   :bg-purple-500/15   :text-purple-300">
-                        You’re a Member
+                      <span className="px-2 py-1 rounded bg-brand-100 text-brand-700">
+                        Youâ€™re a Member
                       </span>
                     )}
                     {full && !isMember && !isAdmin && (
-                      <span className="px-2 py-1 rounded bg-rose-100 text-rose-800   :bg-rose-500/15   :text-rose-300">
+                      <span className="px-2 py-1 rounded bg-slate-200 text-brand-600">
                         Group Full
                       </span>
                     )}
@@ -562,11 +563,11 @@ const FindGroup = () => {
                     <button
                       onClick={() => sendJoinRequestToGroup(gid)}
                       disabled={disabled}
-                      className={`w-full inline-flex items-center justify-center px-4 py-2 rounded-lg transition 
+                      className={`w-full inline-flex items-center justify-center px-4 py-2 rounded-xl transition 
                         ${
                           disabled
-                            ? "bg-gray-200 text-gray-600   :bg-slate-800   :text-gray-400 cursor-not-allowed"
-                            : "bg-[#7b1e3c] text-white hover:bg-[#651730]"
+                            ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+                            : "bg-brand-600 text-white hover:bg-brand-700"
                         }`}
                       title={
                         !myId
@@ -582,7 +583,7 @@ const FindGroup = () => {
                           : "Send join request to this group"
                       }
                     >
-                      {requesting[gid] ? "Sending…" : "Send Join Request"}
+                      {requesting[gid] ? "Sendingâ€¦" : "Send Join Request"}
                     </button>
                   </div>
                 </li>
@@ -591,8 +592,10 @@ const FindGroup = () => {
           </ul>
         )}
       </div>
+      </div>
     </section>
   );
 };
 
 export default FindGroup;
+

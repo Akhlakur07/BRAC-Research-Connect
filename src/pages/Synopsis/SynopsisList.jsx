@@ -56,7 +56,6 @@ const SynopsisList = () => {
   const [error, setError] = useState("");
 
   const [search, setSearch] = useState(initialSupervisorParam);
-  const [selectedSupervisor, setSelectedSupervisor] = useState("all");
 
   // Detail modal state
   const [activeSynopsis, setActiveSynopsis] = useState(null);
@@ -82,17 +81,7 @@ const SynopsisList = () => {
       setSynopses(list);
 
       if (initialSupervisorParam) {
-        const matched = list.find(
-          (item) =>
-            item.supervisorName?.toLowerCase() ===
-            initialSupervisorParam.toLowerCase()
-        );
-        if (matched) {
-          setSelectedSupervisor(matched.supervisorName);
-          setSearch("");
-        } else {
-          setSearch(initialSupervisorParam);
-        }
+        setSearch(initialSupervisorParam);
       }
     } catch (err) {
       console.error(err);
@@ -112,20 +101,10 @@ const SynopsisList = () => {
 
   useEffect(() => {
     const param = searchParams.get("supervisor") || "";
-    if (!param) return;
-    if (synopses.length > 0) {
-      const matched = synopses.find(
-        (item) => item.supervisorName?.toLowerCase() === param.toLowerCase()
-      );
-      if (matched) {
-        setSelectedSupervisor(matched.supervisorName);
-        setSearch("");
-      } else {
-        setSelectedSupervisor("all");
-        setSearch(param);
-      }
+    if (param) {
+      setSearch(param);
     }
-  }, [searchParams, synopses]);
+  }, [searchParams]);
 
   useEffect(() => {
     const onKeyDown = (e) => {
@@ -137,27 +116,9 @@ const SynopsisList = () => {
     }
   }, [activeSynopsis]);
 
-  const supervisorOptions = useMemo(() => {
-    const counts = new Map();
-    synopses.forEach((s) => {
-      const name = s.supervisorName?.trim();
-      if (!name) return;
-      counts.set(name, (counts.get(name) || 0) + 1);
-    });
-    return Array.from(counts.entries())
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [synopses]);
-
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return synopses.filter((item) => {
-      if (
-        selectedSupervisor !== "all" &&
-        item.supervisorName !== selectedSupervisor
-      ) {
-        return false;
-      }
       if (!q) return true;
       return (
         item.title?.toLowerCase().includes(q) ||
@@ -165,13 +126,12 @@ const SynopsisList = () => {
         item.supervisorEmail?.toLowerCase().includes(q)
       );
     });
-  }, [synopses, search, selectedSupervisor]);
+  }, [synopses, search]);
 
-  const hasActiveFilters = search.trim() !== "" || selectedSupervisor !== "all";
+  const hasActiveFilters = search.trim() !== "";
 
   const clearFilters = () => {
     setSearch("");
-    setSelectedSupervisor("all");
     if (searchParams.has("supervisor")) {
       setSearchParams({});
     }
@@ -216,33 +176,20 @@ const SynopsisList = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-8 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">
+            <h1 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
               BRACU CSE Thesis <span className="text-[#7b1e3c]">Synopsis</span>
             </h1>
-            <p className="text-gray-600 mt-2 max-w-2xl">
-              Explore live thesis topic synopses offered by BRACU CSE faculty
-              from{" "}
-              <a
-                href="https://cse.bracu.ac.bd/thesis/synopsis"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7b1e3c] font-medium hover:underline inline-flex items-center gap-1"
-              >
-                cse.bracu.ac.bd/thesis/synopsis
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </p>
           </div>
 
           <button
             onClick={() => fetchSynopses(true)}
             disabled={refreshing}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-gray-100 transition text-sm font-medium self-start md:self-auto disabled:opacity-60"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-brand-100 bg-white text-slate-700 hover:bg-brand-50/50 transition text-sm font-medium self-start md:self-auto disabled:opacity-60 shadow-xs"
           >
             <RefreshCw
               className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`}
@@ -251,51 +198,30 @@ const SynopsisList = () => {
           </button>
         </div>
 
-        {/* Search and Supervisor Filter */}
-        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm mb-8 space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            <div className="md:col-span-7 relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by synopsis title, supervisor name, or email..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
-              />
-            </div>
-
-            <div className="md:col-span-5">
-              <select
-                value={selectedSupervisor}
-                onChange={(e) => setSelectedSupervisor(e.target.value)}
-                aria-label="Filter by supervisor"
-                className="w-full px-3 py-2.5 rounded-lg border border-gray-300 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
-              >
-                <option value="all">
-                  All Supervisors ({synopses.length} synopses)
-                </option>
-                {supervisorOptions.map((opt) => (
-                  <option key={opt.name} value={opt.name}>
-                    {opt.name} ({opt.count})
-                  </option>
-                ))}
-              </select>
-            </div>
+        {/* Search */}
+        <div className="bg-white rounded-2xl border border-brand-100 p-4 sm:p-5 shadow-sm mb-8 space-y-3">
+          <div className="relative">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by synopsis title, supervisor name, or email..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-brand-100 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+            />
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs text-gray-600">
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-brand-100/60 text-xs text-slate-500">
             <span>
               Showing <strong>{filtered.length}</strong> of{" "}
-              <strong>{synopses.length}</strong> synopses across{" "}
-              <strong>{supervisorOptions.length}</strong> supervisors
+              <strong>{synopses.length}</strong> synopses
             </span>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-[#7b1e3c] font-semibold hover:underline"
+                className="text-brand-600 font-semibold hover:underline"
               >
-                Clear filters
+                Clear filter
               </button>
             )}
           </div>

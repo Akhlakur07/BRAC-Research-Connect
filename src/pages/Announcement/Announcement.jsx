@@ -119,16 +119,16 @@ const Announcement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white    p-6">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-slate-900   :text-white">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50/60 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 animate-fade-up">
+        <div className="flex flex-wrap gap-4 justify-between items-center mb-8">
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">
             Announcements
           </h1>
           {User?.role === "admin" && (
             <button
               onClick={() => openModal(false)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#651730]"
+              className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 text-white font-semibold rounded-xl shadow-md shadow-brand-200 hover:bg-brand-700 transition"
             >
               <Plus size={18} /> New Announcement
             </button>
@@ -137,31 +137,31 @@ const Announcement = () => {
 
         {/* Announcements List */}
         {loading ? (
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-slate-500">Loading...</p>
         ) : (
           <div className="space-y-4">
             {announcements.map((a) => (
               <div
                 key={a._id}
-                className="p-4 border border-gray-200   :border-slate-700 rounded-lg bg-white   :bg-slate-800"
+                className="p-6 border border-brand-100 rounded-2xl bg-white shadow-sm hover:shadow-md transition"
               >
-                <h2 className="text-lg font-semibold text-slate-900   :text-white">
+                <h2 className="font-display text-lg font-bold text-slate-900 mb-1">
                   {a.title}
                 </h2>
-                <p className="text-slate-600   :text-gray-400">
+                <p className="text-slate-600 leading-relaxed">
                   {a.description}
                 </p>
                 {user?.role === "admin" && (
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => openModal(true, a)}
-                      className="p-1 text-green-600 hover:text-green-800"
+                      className="p-2 rounded-lg text-brand-600 bg-brand-50 hover:bg-brand-100 transition"
                     >
                       <Edit2 size={16} />
                     </button>
                     <button
                       onClick={() => handleDelete(a._id)}
-                      className="p-1 text-red-600 hover:text-red-800"
+                      className="p-2 rounded-lg text-brand-700 bg-brand-50 hover:bg-brand-100 transition"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -170,7 +170,7 @@ const Announcement = () => {
               </div>
             ))}
             {announcements.length === 0 && (
-              <p className="text-gray-500">No announcements yet</p>
+              <p className="text-slate-500">No announcements yet</p>
             )}
           </div>
         )}
@@ -178,40 +178,40 @@ const Announcement = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-          <div className="bg-white   :bg-slate-800 rounded-lg shadow-lg w-full max-w-lg">
-            <div className="flex justify-between items-center p-4 border-b   :border-slate-700">
-              <h2 className="text-xl font-bold">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white border border-brand-100 rounded-3xl shadow-2xl w-full max-w-lg animate-fade-up">
+            <div className="flex justify-between items-center p-5 border-b border-brand-100">
+              <h2 className="font-display text-xl font-bold text-slate-900">
                 {isEditing ? "Edit Announcement" : "New Announcement"}
               </h2>
-              <button onClick={closeModal}>
+              <button onClick={closeModal} className="p-1.5 rounded-lg text-slate-500 hover:bg-brand-50 hover:text-brand-600 transition">
                 <X />
               </button>
             </div>
-            <div className="p-4 space-y-4">
+            <div className="p-5 space-y-4">
               <input
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
                 placeholder="Title"
-                className="w-full p-2 border rounded"
+                className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 placeholder="Description"
-                className="w-full p-2 border rounded"
+                className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                 rows={4}
               />
             </div>
-            <div className="flex justify-end p-4 border-t   :border-slate-700 gap-2">
-              <button onClick={closeModal} className="px-4 py-2 border rounded">
+            <div className="flex justify-end p-5 border-t border-brand-100 gap-2">
+              <button onClick={closeModal} className="px-5 py-2.5 border border-brand-100 rounded-xl text-slate-700 font-semibold hover:bg-brand-50 transition">
                 Cancel
               </button>
               <button
                 onClick={isEditing ? handleEdit : handleCreate}
-                className="px-4 py-2 bg-[#7b1e3c] text-white rounded"
+                className="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition"
               >
                 {isEditing ? "Update" : "Create"}
               </button>

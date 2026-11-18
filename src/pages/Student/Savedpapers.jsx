@@ -62,53 +62,55 @@ const Savedpapers = () => {
   };
 
   if (loading) {
-    return <p className="p-6 text-gray-700">Loading your saved papers...</p>;
+    return <p className="p-6 text-slate-700">Loading your saved papers...</p>;
   }
 
   if (bookmarks.length === 0) {
-    return <p className="p-6 text-gray-600">You have no saved papers yet.</p>;
+    return <p className="p-6 text-slate-600">You have no saved papers yet.</p>;
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">My Saved Papers</h2>
+    <div className="min-h-screen bg-slate-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <h2 className="font-display text-3xl font-bold mb-6 text-brand-700">My Saved Papers</h2>
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {bookmarks.map((paper) => (
-          <div
-            key={paper.paperId}
-            className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300 h-80"
-          >
-            <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">
-                {paper.title}
-              </h3>
-              <p className="text-sm text-gray-600 mb-2 line-clamp-1">
-                Authors:{" "}
-                {(paper.authors && paper.authors.join(", ")) || "Unknown"}
-              </p>
-              <p className="text-gray-700 text-sm line-clamp-5">
-                {paper.summary}
-              </p>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bookmarks.map((paper) => (
+            <div
+              key={paper.paperId}
+              className="bg-white border border-brand-100 rounded-2xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300 h-80"
+            >
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-brand-700 mb-2 line-clamp-2">
+                  {paper.title}
+                </h3>
+                <p className="text-sm text-slate-600 mb-2 line-clamp-1">
+                  Authors:{" "}
+                  {(paper.authors && paper.authors.join(", ")) || "Unknown"}
+                </p>
+                <p className="text-slate-700 text-sm line-clamp-5">
+                  {paper.summary}
+                </p>
+              </div>
+              <div className="mt-4 flex gap-2">
+                <a
+                  href={paper.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center px-6 py-3 border border-[#7b1e3c] text-[#7b1e3c] rounded-2xl hover:bg-[#7b1e3c] hover:text-white transition font-medium"
+                >
+                  View Paper
+                </a>
+                <button
+                  onClick={() => removeBookmark(paper.paperId)}
+                  className="flex-1 text-center px-6 py-3 bg-[#7b1e3c] text-white rounded-2xl hover:bg-[#651730] transition font-medium"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-            <div className="mt-4 flex gap-2">
-              <a
-                href={paper.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center px-6 py-3 border border-[#7b1e3c] text-[#7b1e3c]   :text-[#d08ea3] rounded-lg hover:bg-[#7b1e3c] hover:text-white   :hover:text-white transition font-medium"
-              >
-                View Paper
-              </a>
-              <button
-                onClick={() => removeBookmark(paper.paperId)}
-                className="flex-1 text-center px-6 py-3 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#651730] transition font-medium"
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

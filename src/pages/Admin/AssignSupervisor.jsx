@@ -13,9 +13,9 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const statusBadge = (status = "Pending") => {
   const common = "px-2 py-1 rounded-full text-xs font-medium";
-  if (status === "Approved") return `${common} bg-green-100 text-green-800`;
-  if (status === "Rejected") return `${common} bg-red-100 text-red-800`;
-  return `${common} bg-yellow-100 text-yellow-800`;
+  if (status === "Approved") return `${common} bg-emerald-50 text-emerald-700`;
+  if (status === "Rejected") return `${common} bg-brand-100 text-brand-600`;
+  return `${common} bg-amber-50 text-amber-700`;
 };
 
 function formatDate(dateStr) {
@@ -215,13 +215,13 @@ const AssignSupervisor = () => {
   };
 
   return (
-    <section className="min-h-screen bg-white    p-6 transition-colors">
-      <div className="container mx-auto max-w-6xl">
+    <section className="min-h-screen bg-white transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <header className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900   :text-white">
+          <h1 className="font-display text-2xl md:text-3xl font-bold text-brand-700">
             Manage Proposals & Assign Supervisors
           </h1>
-          <p className="text-slate-600   :text-gray-400 mt-1">
+          <p className="text-slate-600 mt-1">
             View proposals by status. Assign the proposed supervisor to a{" "}
             <span className="font-semibold">specific upcoming semester</span>{" "}
             with one click.
@@ -234,10 +234,10 @@ const AssignSupervisor = () => {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-3 py-1.5 rounded-lg border text-sm ${
+              className={`px-3 py-1.5 rounded-2xl border text-sm ${
                 tab === t
                   ? "bg-[#7b1e3c] text-white border-[#7b1e3c]"
-                  : "bg-white   :bg-slate-800 border-gray-200   :border-slate-700 text-slate-700   :text-gray-300"
+                  : "bg-white border-brand-100 text-slate-700"
               }`}
             >
               {t}
@@ -255,19 +255,19 @@ const AssignSupervisor = () => {
         </div>
 
         {/* Content */}
-        <div className="rounded-lg border border-gray-200   :border-slate-700 bg-white   :bg-slate-800">
+        <div className="rounded-2xl border border-brand-100 bg-white">
           {loading ? (
-            <div className="p-6 text-slate-600   :text-gray-300">
+            <div className="p-6 text-slate-600">
               Loading…
             </div>
           ) : error ? (
-            <div className="p-6 text-rose-600   :text-rose-300">{error}</div>
+            <div className="p-6 text-brand-600">{error}</div>
           ) : proposals.length === 0 ? (
-            <div className="p-6 text-slate-600   :text-gray-300">
+            <div className="p-6 text-slate-600">
               No proposals found.
             </div>
           ) : (
-            <ul className="divide-y divide-gray-100   :divide-slate-700">
+            <ul className="divide-y divide-brand-100">
               {proposals.map((p) => {
                 return (
                   <li key={p._id} className="p-5">
@@ -276,12 +276,12 @@ const AssignSupervisor = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <FileText className="w-4 h-4 text-[#7b1e3c]" />
-                          <h3 className="font-semibold text-slate-900   :text-white text-lg">
+                          <h3 className="font-semibold text-brand-700 text-lg">
                             {p.title}
                           </h3>
                         </div>
 
-                        <div className="text-xs text-slate-500   :text-gray-400 mb-2">
+                        <div className="text-xs text-slate-500 mb-2">
                           Group:{" "}
                           <span className="font-medium">
                             {p.groupName || "Unknown Group"}
@@ -308,7 +308,7 @@ const AssignSupervisor = () => {
                           </div>
                         )}
 
-                        <p className="text-sm text-slate-700   :text-gray-300 mb-2">
+                        <p className="text-sm text-slate-700 mb-2">
                           {p.abstract}
                         </p>
 
@@ -332,21 +332,21 @@ const AssignSupervisor = () => {
 
                       {/* Right: meta + actions */}
                       <div className="w-full md:w-72 shrink-0">
-                        <div className="rounded-lg border border-gray-200   :border-slate-700 p-3 bg-slate-50   ">
-                          <div className="text-xs text-slate-500   :text-gray-400 mb-1">
+                        <div className="rounded-2xl border border-brand-100 p-3 bg-brand-50/60   ">
+                          <div className="text-xs text-slate-500 mb-1">
                             Proposed Supervisor
                           </div>
-                          <div className="font-medium text-slate-900   :text-white">
+                          <div className="font-medium text-brand-700">
                             {p.supervisorName ||
                               p.supervisorEmail ||
                               p.supervisor}
                           </div>
-                          <div className="text-xs text-slate-500   :text-gray-400 mt-1">
+                          <div className="text-xs text-slate-500 mt-1">
                             {p.supervisorEmail}
                           </div>
                         </div>
 
-                        <div className="mt-3 text-xs text-slate-500   :text-gray-400 flex items-center gap-2">
+                        <div className="mt-3 text-xs text-slate-500 flex items-center gap-2">
                           <Users className="w-4 h-4" />
                           Group: {p.groupName || "Unknown"}
                         </div>
@@ -357,7 +357,7 @@ const AssignSupervisor = () => {
                             <button
                               disabled={assigningId === p._id}
                               onClick={() => openSemesterModal(p)}
-                              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-60"
+                              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-60"
                               title="Assign this proposed supervisor to a semester for the group"
                             >
                               <CheckCircle className="w-4 h-4" />
@@ -366,12 +366,12 @@ const AssignSupervisor = () => {
                                 : "Assign (Pick Semester)"}
                             </button>
                           ) : p.status === "Approved" ? (
-                            <span className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-emerald-100 text-emerald-800">
+                            <span className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-emerald-100 text-emerald-800">
                               <CheckCircle className="w-4 h-4" />
                               Already Assigned
                             </span>
                           ) : (
-                            <span className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-red-100 text-red-800">
+                            <span className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-brand-100 text-brand-600">
                               <XCircle className="w-4 h-4" />
                               Rejected (via Supervisor)
                             </span>
@@ -411,7 +411,7 @@ const AssignSupervisor = () => {
                                   alert(err.message);
                                 }
                               }}
-                              className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-rose-600 text-white hover:bg-rose-700"
+                              className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-brand-600 text-white hover:bg-brand-700"
                             >
                               <XCircle className="w-4 h-4" />
                               Reject (via Sup Endpoint)
@@ -434,14 +434,14 @@ const AssignSupervisor = () => {
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
         >
-          <div className="w-full max-w-lg bg-white   :bg-slate-800 rounded-xl border border-gray-200   :border-slate-700 shadow-xl">
-            <div className="px-5 py-4 border-b border-gray-200   :border-slate-700 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-slate-900   :text-white">
+          <div className="w-full max-w-lg bg-white rounded-2xl border border-brand-100 shadow-xl">
+            <div className="px-5 py-4 border-b border-brand-100 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-brand-700">
                 Assign to Upcoming Semester
               </h3>
               <button
                 onClick={closeSemesterModal}
-                className="text-slate-500 hover:text-slate-700   :hover:text-slate-300"
+                className="text-slate-500 hover:text-brand-600"
               >
                 ✕
               </button>
@@ -472,10 +472,10 @@ const AssignSupervisor = () => {
                     return (
                       <li
                         key={sid}
-                        className={`p-3 rounded-lg border ${
+                        className={`p-3 rounded-2xl border ${
                           selectedSemesterId === sid
                             ? "border-[#7b1e3c] bg-[#7b1e3c]/5"
-                            : "border-gray-200   :border-slate-700"
+                            : "border-brand-100"
                         }`}
                       >
                         <label className="flex items-start gap-3 cursor-pointer">
@@ -490,13 +490,13 @@ const AssignSupervisor = () => {
                           />
                           <div className="min-w-0">
                             <div className="flex items-center gap-2">
-                              <span className="font-medium text-slate-900   :text-white capitalize">
+                              <span className="font-medium text-brand-700 capitalize">
                                 {s.season} {s.year}
                               </span>
                               <span
                                 className={`text-[10px] px-2 py-0.5 rounded-full ${
                                   full
-                                    ? "bg-red-100 text-red-700"
+                                    ? "bg-brand-100 text-brand-600"
                                     : "bg-emerald-100 text-emerald-700"
                                 }`}
                               >
@@ -519,10 +519,10 @@ const AssignSupervisor = () => {
               )}
             </div>
 
-            <div className="px-5 py-4 border-t border-gray-200   :border-slate-700 flex gap-3">
+            <div className="px-5 py-4 border-t border-brand-100 flex gap-3">
               <button
                 onClick={closeSemesterModal}
-                className="flex-1 px-4 py-2 rounded-lg border border-gray-200   :border-slate-700 text-slate-700   -200 hover:bg-slate-50   :hover:bg-slate-700"
+                className="flex-1 px-4 py-2 rounded-2xl border border-brand-100 text-slate-700   -200 hover:bg-brand-50"
               >
                 Cancel
               </button>
@@ -535,7 +535,7 @@ const AssignSupervisor = () => {
                   !selectedSemesterId ||
                   (capacityBySemester[selectedSemesterId] || 0) >= MAX_PER_SEM
                 }
-                className="flex-1 px-4 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#691832] disabled:opacity-60"
+                className="flex-1 px-4 py-2 rounded-2xl bg-[#7b1e3c] text-white hover:bg-[#691832] disabled:opacity-60"
               >
                 {assigningId === semModalProposal._id
                   ? "Assigning…"

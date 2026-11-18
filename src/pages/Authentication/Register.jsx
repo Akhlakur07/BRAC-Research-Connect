@@ -38,7 +38,7 @@ const Register = () => {
 
     // Create user in Firebase Authentication
     createUser(formData.email, formData.password)
-      .then((userCredential) => {
+      .then(() => {
         alert("Registration successful!");
 
         // Conditional API POST request based on role
@@ -64,7 +64,7 @@ const Register = () => {
           body: JSON.stringify(postData),
         })
           .then((response) => response.json())
-          .then((data) => {
+          .then(() => {
             navigate("/login");
           })
           .catch((error) => {
@@ -79,32 +79,32 @@ const Register = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white    transition-colors px-6 py-12">
-      <div className="max-w-md w-full bg-slate-100   :bg-slate-800 rounded-lg shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-slate-900   :text-white text-center">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-brand-50 to-white px-4 sm:px-6 py-12">
+      <div className="max-w-md w-full bg-white border border-brand-100 rounded-3xl shadow-xl shadow-brand-100/60 p-6 sm:p-10 animate-fade-up">
+        <h2 className="font-display text-3xl font-extrabold mb-6 text-slate-900 text-center">
           Register as {role === "student" ? "Student" : "Supervisor"}
         </h2>
 
-        <div className="mb-6 text-center">
-          <label className="mr-4 font-medium text-slate-700   :text-gray-300">
+        <div className="mb-6 flex justify-center gap-3">
+          <label className="px-4 py-2 rounded-full border border-brand-100 bg-brand-50 text-sm font-semibold text-slate-700 cursor-pointer">
             <input
               type="radio"
               name="role"
               value="student"
               checked={role === "student"}
               onChange={handleRoleChange}
-              className="mr-1"
+              className="mr-2 accent-brand-600"
             />
             Student
           </label>
-          <label className="font-medium text-slate-700   :text-gray-300">
+          <label className="px-4 py-2 rounded-full border border-brand-100 bg-brand-50 text-sm font-semibold text-slate-700 cursor-pointer">
             <input
               type="radio"
               name="role"
               value="supervisor"
               checked={role === "supervisor"}
               onChange={handleRoleChange}
-              className="mr-1"
+              className="mr-2 accent-brand-600"
             />
             Supervisor
           </label>
@@ -112,7 +112,7 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+            <label className="block mb-1.5 text-sm font-semibold text-slate-700">
               Full Name
             </label>
             <input
@@ -122,12 +122,12 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your full name"
-              className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+              className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+            <label className="block mb-1.5 text-sm font-semibold text-slate-700">
               {role === "student" ? "G-Suite Email" : "BRAC Email"}
             </label>
             <input
@@ -141,14 +141,14 @@ const Register = () => {
                   ? "example@gsuite.bracu.ac.bd"
                   : "example@bracu.ac.bd"
               }
-              className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+              className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
             />
           </div>
 
           {role === "student" && (
             <>
               <div>
-                <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+                <label className="block mb-1.5 text-sm font-semibold text-slate-700">
                   Student ID
                 </label>
                 <input
@@ -158,12 +158,12 @@ const Register = () => {
                   value={formData.studentId}
                   onChange={handleChange}
                   placeholder="e.g., 1801234"
-                  className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+                  className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+                <label className="block mb-1.5 text-sm font-semibold text-slate-700">
                   Total Credits Completed
                 </label>
                 <input
@@ -175,14 +175,14 @@ const Register = () => {
                   value={formData.creditsCompleted}
                   onChange={handleChange}
                   placeholder="e.g., 75"
-                  className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+                  className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
             </>
           )}
 
           <div>
-            <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+            <label className="block mb-1.5 text-sm font-semibold text-slate-700">
               Photo URL
             </label>
             <input
@@ -192,20 +192,20 @@ const Register = () => {
               value={formData.photoUrl}
               onChange={handleChange}
               placeholder="Paste a URL to your photo"
-              className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+              className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
             />
             {formData.photoUrl && (
               <img
                 src={formData.photoUrl}
                 alt="Photo preview"
-                className="mt-3 w-28 h-28 rounded-full object-cover border border-gray-300   :border-gray-600"
+                className="mt-3 w-28 h-28 rounded-full object-cover border-2 border-brand-100"
                 onError={(e) => (e.target.style.display = "none")}
               />
             )}
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-slate-700   :text-gray-300">
+            <label className="block mb-1.5 text-sm font-semibold text-slate-700">
               Password
             </label>
             <input
@@ -215,13 +215,13 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter a strong password"
-              className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600 bg-white   :bg-slate-700 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+              className="w-full px-4 py-3 rounded-xl border border-brand-100 bg-white text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#7b1e3c] hover:bg-[#651730] transition text-white font-semibold py-3 rounded-lg"
+            className="w-full bg-brand-600 hover:bg-brand-700 transition text-white font-semibold py-3 rounded-xl shadow-md shadow-brand-200 hover:shadow-lg"
           >
             Register
           </button>

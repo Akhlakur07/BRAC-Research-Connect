@@ -113,7 +113,7 @@ const ViewRecievedProposals = () => {
         const msg =
           data?.message ||
           (res.status === 409
-            ? "You’ve reached the maximum of 8 groups for this semester."
+            ? "Youâ€™ve reached the maximum of 8 groups for this semester."
             : "Failed to update proposal");
         throw new Error(msg);
       }
@@ -171,59 +171,64 @@ const ViewRecievedProposals = () => {
   const formatSemLabel = (s) =>
     `${s.season?.charAt(0).toUpperCase()}${s.season?.slice(1)} ${
       s.year
-    } — starts ${s.startDate}`;
+    } â€” starts ${s.startDate}`;
 
   return (
-    <section className="min-h-screen bg-white    transition-colors p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-6 flex items-center gap-3">
-          <FileText className="w-7 h-7 text-[#7b1e3c]" />
-          <h1 className="text-2xl md:text-3xl font-semibold text-slate-900   :text-white">
-            Proposals Submitted to You
+    <section className="min-h-screen bg-white">
+      <div className="bg-gradient-to-b from-brand-50 to-white border-b border-brand-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center animate-fade-up">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-600 text-xs font-semibold uppercase tracking-wider mb-4">
+            <FileText className="w-3.5 h-3.5" /> Supervisor
+          </span>
+          <h1 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900">
+            Proposals Submitted <span className="text-brand-600">to You</span>
           </h1>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {!supervisorId ? (
-          <div className="text-amber-700   :text-amber-300">
+          <div className="p-6 rounded-2xl border border-brand-100 bg-brand-50 text-brand-700 text-center">
             Couldn’t resolve your supervisor account.
           </div>
         ) : loading ? (
-          <div className="text-slate-600   :text-gray-300">
+          <div className="p-8 rounded-2xl border border-brand-100 shadow-sm text-slate-600 text-center">
             Loading proposals…
           </div>
         ) : error ? (
-          <div className="text-rose-700   :text-rose-300">{error}</div>
+          <div className="p-6 rounded-2xl border border-brand-200 bg-brand-50 text-brand-700 text-center font-medium">
+            {error}
+          </div>
         ) : proposals.length === 0 ? (
-          <div className="text-slate-600   :text-gray-300">
+          <div className="p-8 rounded-2xl border border-brand-100 shadow-sm text-slate-600 text-center">
             No proposals submitted yet.
           </div>
         ) : (
-          <ul className="space-y-4">
+          <ul className="space-y-6">
             {proposals.map((p) => {
               const pid = String(p._id);
               const pending = p.status === "Pending";
               return (
                 <li
                   key={pid}
-                  className="rounded-xl border border-gray-200   :border-slate-700 p-4 bg-white   "
+                  className="rounded-3xl border border-brand-100 p-6 sm:p-8 bg-white shadow-sm hover:shadow-lg transition-shadow animate-fade-up"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                    <div className="min-w-0 flex-1 w-full">
+                      <h3 className="text-lg font-bold font-display text-slate-900">
                         {p.title}
                       </h3>
-                      <div className="text-xs text-slate-500   :text-gray-400">
+                      <div className="text-xs text-slate-500">
                         {p.groupName || "Unknown Group"} —{" "}
                         {p.createdAt
                           ? new Date(p.createdAt).toLocaleDateString()
                           : ""}
                       </div>
-                      <p className="mt-3 text-sm text-slate-700   :text-gray-300">
+                      <p className="mt-3 text-sm text-slate-700 leading-relaxed">
                         {p.abstract}
                       </p>
 
-                      {/* Supervisor feedback section */}
-                      <div className="mt-3">
+                      <div className="mt-4">
                         <textarea
                           value={feedbackDraft[pid] || ""}
                           onChange={(e) =>
@@ -233,27 +238,26 @@ const ViewRecievedProposals = () => {
                             }))
                           }
                           placeholder="Write feedback..."
-                          className="w-full mt-2 p-2 border rounded-md text-sm   :bg-slate-800   :border-slate-700   :text-white"
+                          className="w-full mt-2 px-4 py-3 border border-brand-100 rounded-xl text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-600"
                         />
                         <button
                           onClick={() => sendFeedback(pid)}
                           disabled={acting[pid]}
-                          className="mt-2 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#7b1e3c] text-white disabled:opacity-60"
+                          className="mt-2 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-md transition disabled:opacity-60"
                         >
                           <Send className="w-4 h-4" /> Send Feedback
                         </button>
                       </div>
 
-                      {/* Show feedback history */}
                       {Array.isArray(p.feedback) && p.feedback.length > 0 && (
-                        <ul className="mt-3 space-y-1 text-sm text-slate-600   :text-gray-400">
+                        <ul className="mt-4 space-y-2 text-sm text-slate-600">
                           {p.feedback.map((f, idx) => (
                             <li
                               key={idx}
-                              className="border-l-2 pl-2 border-blue-500"
+                              className="border-l-2 pl-3 border-brand-600 bg-brand-50/50 rounded-r-xl py-1.5"
                             >
                               {f.text}{" "}
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-slate-400">
                                 ({new Date(f.date).toLocaleString()})
                               </span>
                             </li>
@@ -261,14 +265,14 @@ const ViewRecievedProposals = () => {
                         </ul>
                       )}
 
-                      <div className="mt-3 flex items-center gap-2 text-xs">
+                      <div className="mt-4 flex flex-wrap items-center gap-3 text-xs">
                         <span
-                          className={`px-2 py-1 rounded-full ${
+                          className={`px-3 py-1 rounded-full font-semibold ${
                             p.status === "Approved"
-                              ? "bg-green-100 text-green-800"
+                              ? "bg-brand-600 text-white"
                               : p.status === "Rejected"
-                              ? "bg-red-100 text-red-800"
-                              : "bg-yellow-100 text-yellow-800"
+                              ? "bg-slate-200 text-slate-700"
+                              : "bg-brand-100 text-brand-600"
                           }`}
                         >
                           {p.status}
@@ -278,7 +282,7 @@ const ViewRecievedProposals = () => {
                             href={p.driveLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[#7b1e3c] hover:underline"
+                            className="inline-flex items-center gap-1 text-brand-600 font-semibold hover:underline"
                           >
                             <LinkIcon className="w-3.5 h-3.5" />
                             Drive Link
@@ -287,15 +291,14 @@ const ViewRecievedProposals = () => {
                       </div>
                     </div>
 
-                    <div className="shrink-0 flex flex-col gap-2">
-                      {/* Approve opens semester picker modal */}
+                    <div className="shrink-0 flex sm:flex-col gap-2">
                       <button
                         onClick={() => openApproveModal(pid)}
                         disabled={!pending || acting[pid]}
-                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg ${
+                        className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition ${
                           !pending || acting[pid]
-                            ? "bg-gray-200 text-gray-600   :bg-slate-800   :text-gray-400 cursor-not-allowed"
-                            : "bg-white text-[#7b1e3c] border border-[#7b1e3c] hover:bg-[#fdf2f4]"
+                            ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+                            : "bg-white text-brand-600 border border-brand-600 hover:bg-brand-50"
                         }`}
                       >
                         <Check className="w-4 h-4" /> Approve
@@ -304,10 +307,10 @@ const ViewRecievedProposals = () => {
                       <button
                         onClick={() => decide(pid, "reject")}
                         disabled={!pending || acting[pid]}
-                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg ${
+                        className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition ${
                           !pending || acting[pid]
-                            ? "bg-gray-200 text-gray-600   :bg-slate-800   :text-gray-400 cursor-not-allowed"
-                            : "bg-[#7b1e3c] text-white rounded-lg hover:bg-[#651730]"
+                            ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+                            : "bg-brand-600 text-white hover:bg-brand-700 shadow-md"
                         }`}
                       >
                         <X className="w-4 h-4" /> Reject
@@ -320,21 +323,19 @@ const ViewRecievedProposals = () => {
           </ul>
         )}
 
-        {/* Approve -> Select Starting Semester Modal */}
         {showApproveModal && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
           >
-            <div className="bg-white   :bg-slate-800 rounded-lg p-6 w-full max-w-md">
+            <div className="bg-white border border-brand-100 rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-fade-up">
               <div className="flex items-center gap-2 mb-4">
-                <Calendar className="w-5 h-5 text-[#7b1e3c]" />
-                <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                <Calendar className="w-5 h-5 text-brand-600" />
+                <h3 className="text-lg font-bold font-display text-slate-900">
                   Choose Starting Semester
                 </h3>
               </div>
 
-              <p className="text-sm text-slate-600   :text-gray-300 mb-3">
+              <p className="text-sm text-slate-600 mb-3">
                 Only upcoming semesters are shown. Current/past semesters are
                 hidden.
               </p>
@@ -342,7 +343,7 @@ const ViewRecievedProposals = () => {
               <select
                 value={selectedSemesterId}
                 onChange={(e) => setSelectedSemesterId(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300   :border-slate-600 rounded-md   :bg-slate-700   :text-white"
+                className="w-full px-4 py-3 border border-brand-100 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-600"
               >
                 <option value="">Select semester</option>
                 {upcomingSemesters.map((s) => (
@@ -353,7 +354,7 @@ const ViewRecievedProposals = () => {
               </select>
 
               {upcomingSemesters.length === 0 && (
-                <div className="mt-2 text-sm text-amber-600   :text-amber-300">
+                <div className="mt-2 text-sm text-brand-600">
                   No upcoming semesters available.
                 </div>
               )}
@@ -361,7 +362,7 @@ const ViewRecievedProposals = () => {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={closeApproveModal}
-                  className="flex-1 px-4 py-2 border border-gray-300   :border-slate-600 rounded-md text-slate-700   -300 hover:bg-gray-50   :hover:bg-slate-700 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-brand-100 rounded-xl text-slate-700 font-semibold hover:bg-brand-50 transition-colors"
                 >
                   Cancel
                 </button>
@@ -376,7 +377,7 @@ const ViewRecievedProposals = () => {
                     await decide(pid, "approve", selectedSemesterId);
                   }}
                   disabled={!selectedSemesterId}
-                  className="flex-1 px-4 py-2 bg-[#7b1e3c] text-white rounded-md hover:bg-[#691832] transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-brand-600 text-white font-semibold rounded-xl hover:bg-brand-700 transition-colors disabled:opacity-50"
                 >
                   Approve
                 </button>
@@ -386,7 +387,6 @@ const ViewRecievedProposals = () => {
         )}
       </div>
     </section>
-  );
-};
+  );};
 
 export default ViewRecievedProposals;

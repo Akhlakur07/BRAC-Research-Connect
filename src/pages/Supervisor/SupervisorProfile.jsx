@@ -124,33 +124,34 @@ const SupervisorProfile = () => {
 
   if (loading) {
     return (
-      <div className="p-6 bg-white    rounded-lg shadow">
-        <p className="text-gray-500   :text-gray-400">Loading profile...</p>
+      <div className="p-6 bg-white rounded-xl shadow">
+        <p className="text-slate-600">Loading profile...</p>
       </div>
     );
   }
 
   if (!supervisor) {
     return (
-      <div className="p-6 bg-white    rounded-lg shadow">
-        <p className="text-gray-500   :text-gray-400">Profile not found</p>
+      <div className="p-6 bg-white rounded-xl shadow">
+        <p className="text-slate-600">Profile not found</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-50    p-4 sm:p-8">
-      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+    <div className="w-full min-h-screen bg-brand-50/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
         {/* LEFT: Update Profile */}
-        <div className="flex-1 bg-white    rounded-lg shadow border border-gray-200   :border-gray-700 p-6 sm:p-8">
-          <h2 className="text-2xl font-bold text-slate-900   :text-white mb-6">
-            Update <span className="text-[#7b1e3c]">Profile</span>
+        <div className="flex-1 bg-white rounded-3xl shadow-sm border border-brand-100 animate-fade-up p-6 sm:p-8">
+          <h2 className="text-2xl font-bold font-display text-slate-900 mb-6">
+            Update <span className="text-brand-600">Profile</span>
           </h2>
           <form onSubmit={handleSubmit} className="space-y-5">
             {["name", "email", "department", "phone", "photoUrl"].map(
               (field) => (
                 <div key={field}>
-                  <label className="block text-sm font-medium mb-1   :text-gray-300">
+                  <label className="block text-sm font-medium mb-1">
                     {field.charAt(0).toUpperCase() + field.slice(1)}
                   </label>
                   <input
@@ -158,15 +159,15 @@ const SupervisorProfile = () => {
                     name={field}
                     value={formData[field]}
                     onChange={handleChange}
-                    className={`w-full px-3 py-2 border rounded-lg   :bg-slate-800   :text-white ${
+                    className={`w-full px-3 py-2 border rounded-xl ${
                       errors[field]
-                        ? "border-red-500"
-                        : "border-gray-300   :border-gray-600"
+                        ? "border-brand-700"
+                        : "border-brand-100"
                     }`}
                     disabled={field === "email"}
                   />
                   {errors[field] && (
-                    <p className="mt-1 text-sm text-red-600   :text-red-400">
+                    <p className="mt-1 text-sm text-brand-700">
                       {errors[field]}
                     </p>
                   )}
@@ -174,7 +175,7 @@ const SupervisorProfile = () => {
               )
             )}
             <div>
-              <label className="block text-sm font-medium mb-1   :text-gray-300">
+              <label className="block text-sm font-medium mb-1">
                 Research Area
               </label>
               <textarea
@@ -182,14 +183,14 @@ const SupervisorProfile = () => {
                 value={formData.researchArea}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-3 py-2 border rounded-lg   :bg-slate-800   :text-white border-gray-300   :border-gray-600"
+                className="w-full px-3 py-2 border rounded-xl border-brand-100"
                 disabled={updating}
               />
             </div>
             <button
               type="submit"
               disabled={updating}
-              className="px-6 py-2 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#651730] transition disabled:opacity-50"
+              className="px-6 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition disabled:opacity-50"
             >
               {updating ? "Saving..." : "Save Changes"}
             </button>
@@ -197,9 +198,9 @@ const SupervisorProfile = () => {
         </div>
 
         {/* RIGHT: Profile Overview */}
-        <div className="flex-1 bg-white    rounded-lg shadow border border-gray-200   :border-gray-700 p-6 sm:p-8 flex flex-col justify-start">
-          <h2 className="text-2xl font-bold text-slate-900   :text-white mb-6">
-            Profile <span className="text-[#7b1e3c]">Overview</span>
+        <div className="flex-1 bg-white rounded-3xl shadow-sm border border-brand-100 animate-fade-up p-6 sm:p-8 flex flex-col justify-start">
+          <h2 className="text-2xl font-bold font-display text-slate-900 mb-6">
+            Profile <span className="text-brand-600">Overview</span>
           </h2>
 
           <div className="flex items-center gap-4 mb-4">
@@ -207,20 +208,20 @@ const SupervisorProfile = () => {
               <img
                 src={supervisor.photoUrl}
                 alt="Profile"
-                className="w-20 h-20 rounded-full object-cover border-2 border-[#7b1e3c]"
+                className="w-20 h-20 rounded-full object-cover border-2 border-brand-600"
               />
             ) : (
-              <div className="w-20 h-20 rounded-full bg-gray-200   :bg-gray-700 flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-600   :text-gray-300">
+              <div className="w-20 h-20 rounded-full bg-brand-100 flex items-center justify-center">
+                <span className="text-lg font-semibold text-slate-600">
                   {supervisor.name?.charAt(0)}
                 </span>
               </div>
             )}
             <div>
-              <h3 className="text-lg font-semibold text-slate-900   :text-white">
+              <h3 className="text-lg font-semibold text-slate-900">
                 {supervisor.name}
               </h3>
-              <p className="text-sm text-gray-600   :text-gray-400">
+              <p className="text-sm text-slate-600">
                 {supervisor.email}
               </p>
             </div>
@@ -228,26 +229,26 @@ const SupervisorProfile = () => {
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-600">
                 Department
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-slate-900">
                 {supervisor.department}
               </dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-600">
                 Phone
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-slate-900">
                 {supervisor.phone || "—"}
               </dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="text-xs uppercase tracking-wide text-gray-500   :text-gray-400">
+              <dt className="text-xs uppercase tracking-wide text-slate-600">
                 Research Area
               </dt>
-              <dd className="font-medium text-slate-900   :text-white">
+              <dd className="font-medium text-slate-900">
                 {supervisor.researchArea || "—"}
               </dd>
             </div>
@@ -255,6 +256,7 @@ const SupervisorProfile = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

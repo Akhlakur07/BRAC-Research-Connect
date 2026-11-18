@@ -148,51 +148,51 @@ const SupervisorDashboard = () => {
       : "";
 
   return (
-    <section className="min-h-screen bg-white    p-6 transition-colors">
-      <div className="container mx-auto">
+    <section className="min-h-screen bg-white transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900   :text-white">
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-brand-700">
               Welcome, {user?.name || user?.displayName || "Supervisor"}
             </h1>
-            <p className="text-slate-600   :text-gray-400 mt-1">
+            <p className="text-slate-600 mt-1">
               Manage your students, recommend papers, schedule meetings and
               assign final grades.
             </p>
           </div>
 
           <div className="flex gap-4">
-            <div className="bg-slate-100   :bg-slate-800 rounded-lg p-4 shadow flex items-center gap-3 min-w-[150px]">
+            <div className="bg-brand-50 rounded-2xl p-4 shadow-sm flex items-center gap-3 min-w-[150px]">
               <Users className="w-6 h-6 text-[#7b1e3c]" />
               <div>
-                <div className="text-sm text-slate-600   :text-gray-400">
+                <div className="text-sm text-slate-600">
                   Assigned Groups
                 </div>
-                <div className="font-semibold text-slate-900   :text-white">
+                <div className="font-semibold text-brand-700">
                   {assignedGroupsCount}
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-100   :bg-slate-800 rounded-lg p-4 shadow flex items-center gap-3 min-w-[150px]">
+            <div className="bg-brand-50 rounded-2xl p-4 shadow-sm flex items-center gap-3 min-w-[150px]">
               <FileText className="w-6 h-6 text-[#7b1e3c]" />
               <div>
-                <div className="text-sm text-slate-600   :text-gray-400">
+                <div className="text-sm text-slate-600">
                   Pending Proposals
                 </div>
-                <div className="font-semibold text-slate-900   :text-white">
+                <div className="font-semibold text-brand-700">
                   {pendingProposalsCount}
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-100   :bg-slate-800 rounded-lg p-4 shadow flex items-center gap-3 min-w-[150px]">
+            <div className="bg-brand-50 rounded-2xl p-4 shadow-sm flex items-center gap-3 min-w-[150px]">
               <BookOpen className="w-6 h-6 text-[#7b1e3c]" />
               <div>
-                <div className="text-sm text-slate-600   :text-gray-400">
+                <div className="text-sm text-slate-600">
                   Active Theses
                 </div>
-                <div className="font-semibold text-slate-900   :text-white">
+                <div className="font-semibold text-brand-700">
                   {activeThesesCount}
                 </div>
               </div>
@@ -202,18 +202,18 @@ const SupervisorDashboard = () => {
 
         {/* Action buttons row */}
         <div className="flex flex-wrap gap-3 mb-6">
-          <button className="px-4 py-2 bg-[#7b1e3c] text-white rounded-lg">
+          <button className="px-4 py-2 bg-[#7b1e3c] text-white rounded-2xl">
             Create Announcement
           </button>
           <Link to="/search">
-            <button className="px-4 py-2 border border-[#7b1e3c] text-[#7b1e3c] rounded-lg hover:bg-[#7b1e3c] hover:text-white transition">
+            <button className="px-4 py-2 border border-[#7b1e3c] text-[#7b1e3c] rounded-2xl hover:bg-[#7b1e3c] hover:text-white transition">
               <Search className="inline w-4 h-4 mr-2" /> Search Papers
             </button>
           </Link>
 
           {/* View Accepted (Assigned) Groups */}
           {/* <Link to="/supervisor-groups">
-            <button className="px-4 py-2 bg-slate-100   :bg-slate-800 rounded-lg hover:bg-slate-200   :hover:bg-slate-700 transition">
+            <button className="px-4 py-2 bg-brand-50 rounded-2xl hover:bg-brand-100 transition">
               View Accepted Groups
             </button>
           </Link> */}
@@ -223,8 +223,8 @@ const SupervisorDashboard = () => {
           {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Groups by Semester */}
-            <div className="bg-white   :bg-slate-800 rounded-lg p-5 shadow border border-gray-200   :border-slate-700">
-              <h2 className="text-xl font-semibold text-slate-900   :text-white mb-3">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-brand-100">
+              <h2 className="font-display text-xl font-semibold text-brand-700 mb-3">
                 Groups by Semester
               </h2>
 
@@ -244,13 +244,13 @@ const SupervisorDashboard = () => {
                     return (
                       <div
                         key={s._id}
-                        className="rounded-lg border border-gray-100   :border-slate-700 bg-slate-50    p-4"
+                        className="rounded-2xl border border-brand-100 bg-brand-50/60    p-4"
                       >
                         <div className="flex items-center justify-between mb-3">
-                          <div className="font-semibold text-slate-900   :text-white">
+                          <div className="font-semibold text-brand-700">
                             {title}
                           </div>
-                          <div className="text-xs text-slate-500   :text-gray-400">
+                          <div className="text-xs text-slate-500">
                             {formatDate(s.startDate)} — {formatDate(s.endDate)}
                           </div>
                         </div>
@@ -259,21 +259,21 @@ const SupervisorDashboard = () => {
                           {groups.map((g) => (
                             <li
                               key={g._id}
-                              className="p-3 rounded border border-gray-100   :border-slate-700 bg-white   :bg-slate-800"
+                              className="p-3 rounded border border-brand-100 bg-white"
                             >
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <div className="font-semibold text-slate-900   :text-white">
+                                  <div className="font-semibold text-brand-700">
                                     {g.name}
                                   </div>
-                                  <div className="text-xs text-slate-500   :text-gray-400 mt-1">
+                                  <div className="text-xs text-slate-500 mt-1">
                                     Members: {(g.members || []).length} •
                                     Interests:{" "}
                                     {(g.researchInterests || []).join(", ") ||
                                       "—"}
                                   </div>
                                 </div>
-                                <div className="text-xs text-slate-500   :text-gray-400">
+                                <div className="text-xs text-slate-500">
                                   Max Members: {g.maxMembers || 5}
                                 </div>
                               </div>
@@ -288,8 +288,8 @@ const SupervisorDashboard = () => {
             </div>
 
             {/* Upcoming Meetings placeholder */}
-            <div className="bg-white   :bg-slate-800 rounded-lg p-5 shadow border border-gray-200   :border-slate-700">
-              <h2 className="text-xl font-semibold text-slate-900   :text-white mb-3">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-brand-100">
+              <h2 className="font-display text-xl font-semibold text-brand-700 mb-3">
                 Upcoming Meetings
               </h2>
               <div className="text-slate-500">No meetings scheduled.</div>
@@ -299,9 +299,9 @@ const SupervisorDashboard = () => {
           {/* Right column */}
           <aside className="space-y-6">
             {/* Proposals submitted to you */}
-            <div className="bg-white   :bg-slate-800 rounded-lg p-5 shadow border border-gray-200   :border-slate-700 max-w-3xl mx-auto">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-brand-100 max-w-3xl mx-auto">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                <h3 className="text-lg font-semibold text-brand-700">
                   Proposals Submitted to You
                 </h3>
                 <FileText className="w-5 h-5 text-[#7b1e3c]" />
@@ -319,28 +319,28 @@ const SupervisorDashboard = () => {
                     {proposals.map((p) => (
                       <li
                         key={p._id || p.id}
-                        className="p-3 rounded border border-gray-100   :border-slate-700 bg-slate-50   "
+                        className="p-3 rounded border border-brand-100 bg-brand-50/60   "
                       >
-                        <div className="font-semibold text-slate-900   :text-white">
+                        <div className="font-semibold text-brand-700">
                           {p.title}
                         </div>
-                        <div className="text-xs text-slate-500   :text-gray-400 mb-1">
+                        <div className="text-xs text-slate-500 mb-1">
                           {p.groupName || "Unknown Group"} —{" "}
                           {p.createdAt
                             ? new Date(p.createdAt).toLocaleDateString()
                             : ""}
                         </div>
-                        <div className="text-sm text-slate-700   :text-gray-300 mb-2">
+                        <div className="text-sm text-slate-700 mb-2">
                           {p.abstract}
                         </div>
                         <div className="flex gap-2 text-xs items-center">
                           <span
                             className={`px-2 py-1 rounded-full ${
                               p.status === "Approved"
-                                ? "bg-green-100 text-green-800"
+                                ? "bg-emerald-50 text-emerald-700"
                                 : p.status === "Rejected"
-                                ? "bg-red-100 text-red-800"
-                                : "bg-yellow-100 text-yellow-800"
+                                ? "bg-brand-100 text-brand-600"
+                                : "bg-amber-50 text-amber-700"
                             }`}
                           >
                             {p.status}
@@ -363,7 +363,7 @@ const SupervisorDashboard = () => {
                   <div className="mt-4 text-center">
                     <Link
                       to="/view-recieved-proposals"
-                      className="inline-block px-4 py-2 bg-[#7b1e3c] text-white rounded-lg hover:bg-[#691832] transition-colors"
+                      className="inline-block px-4 py-2 bg-[#7b1e3c] text-white rounded-2xl hover:bg-[#691832] transition-colors"
                     >
                       View All Proposals
                     </Link>
@@ -373,9 +373,9 @@ const SupervisorDashboard = () => {
             </div>
 
             {/* Theses placeholder */}
-            <div className="bg-white   :bg-slate-800 rounded-lg p-5 shadow border border-gray-200   :border-slate-700">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-brand-100">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-semibold text-slate-900   :text-white">
+                <h3 className="text-lg font-semibold text-brand-700">
                   Theses You Supervise
                 </h3>
                 <BookOpen className="w-5 h-5 text-[#7b1e3c]" />
@@ -384,30 +384,30 @@ const SupervisorDashboard = () => {
             </div>
 
             {/* Quick actions */}
-            <div className="bg-white   :bg-slate-800 rounded-lg p-5 shadow border border-gray-200   :border-slate-700">
-              <h3 className="text-lg font-semibold text-slate-900   :text-white mb-3">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-brand-100">
+              <h3 className="text-lg font-semibold text-brand-700 mb-3">
                 Quick Actions
               </h3>
               <div className="flex flex-col gap-2">
                 <Link to="/supervisor-profile">
-                  <button className="text-left px-3 py-2 rounded hover:bg-slate-50   :hover:bg-slate-700">
+                  <button className="text-left px-3 py-2 rounded hover:bg-brand-50">
                     Manage Profile
                   </button>
                 </Link>
-                <button className="text-left px-3 py-2 rounded hover:bg-slate-50   :hover:bg-slate-700">
+                <button className="text-left px-3 py-2 rounded hover:bg-brand-50">
                   Search arXiv
                 </button>
-                <button className="text-left px-3 py-2 rounded hover:bg-slate-50   :hover:bg-slate-700">
+                <button className="text-left px-3 py-2 rounded hover:bg-brand-50">
                   View Recommendations
                 </button>
                 <Link to="/schedule-meetings">
-                  <button className="text-left px-3 py-2 rounded hover:bg-slate-50   :hover:bg-slate-700">
+                  <button className="text-left px-3 py-2 rounded hover:bg-brand-50">
                     Schedule Meeting
                   </button>
                 </Link>
                 <Link
                   to="/theses"
-                  className="text-left px-3 py-2 rounded hover:bg-slate-50   :hover:bg-slate-700"
+                  className="text-left px-3 py-2 rounded hover:bg-brand-50"
                 >
                   All Theses
                 </Link>

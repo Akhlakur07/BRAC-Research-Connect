@@ -3,69 +3,85 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-white    text-slate-700   :text-gray-300 border-t border-gray-200   :border-slate-700">
-      <div className="container mx-auto px-6 py-8">
-        
- 
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
-          
-
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900   :text-white">
-              BRACU Research <span className="text-[#7b1e3c]">Connect</span>
-            </h1>
-            <p className="mt-2 max-w-xs text-sm text-slate-600   :text-gray-400">
-              A thesis management portal for BRAC University students to collaborate, manage, and succeed.
+    <footer className="bg-white text-slate-700 border-t border-brand-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10">
+          <div className="max-w-xs">
+            <h2 className="text-2xl font-extrabold font-display tracking-tight text-slate-900">
+              BRACU Research <span className="text-brand-600">Connect</span>
+            </h2>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              A unified thesis management portal for BRAC University students and supervisors to collaborate, explore topics, and succeed.
             </p>
           </div>
 
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 text-sm">
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-3">Navigation</h3>
+              <ul className="space-y-2 text-slate-600">
+                <li>
+                  <Link to="/" className="hover:text-brand-600 transition">Home</Link>
+                </li>
+                <li>
+                  <Link to="/supervisors" className="hover:text-brand-600 transition">Supervisors</Link>
+                </li>
+                <li>
+                  <Link to="/synopsis" className="hover:text-brand-600 transition">Synopsis</Link>
+                </li>
+                <li>
+                  <Link to="/thesis-process" className="hover:text-brand-600 transition">Thesis Process</Link>
+                </li>
+                <li>
+                  <Link to="/all-thesis" className="hover:text-brand-600 transition">All Thesis</Link>
+                </li>
+              </ul>
+            </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-sm">
             <div>
-              <h3 className="font-semibold mb-2">Navigation</h3>
-              <ul className="space-y-1">
+              <h3 className="font-semibold text-slate-900 mb-3">Resources</h3>
+              <ul className="space-y-2 text-slate-600">
                 <li>
-                  <Link to="/" className="hover:text-[#7b1e3c] transition">Home</Link>
+                  <Link to="/all-faqs" className="hover:text-brand-600 transition">FAQs</Link>
                 </li>
                 <li>
-                  <Link to="/supervisors" className="hover:text-[#7b1e3c] transition">Supervisors</Link>
+                  <Link to="/search-feature" className="hover:text-brand-600 transition">Quick Search</Link>
                 </li>
                 <li>
-                  <Link to="/synopsis" className="hover:text-[#7b1e3c] transition">Synopsis</Link>
-                </li>
-                <li>
-                  <Link to="/all-thesis" className="hover:text-[#7b1e3c] transition">All Thesis</Link>
-                </li>
-                <li>
-                  <Link to="/thesis-process" className="hover:text-[#7b1e3c] transition">Guidelines</Link>
+                  <a
+                    href="https://cse.bracu.ac.bd"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-brand-600 transition"
+                  >
+                    BRACU CSE
+                  </a>
                 </li>
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-2">Resources</h3>
-              <ul className="space-y-1">
-                <li className="hover:text-[#7b1e3c] transition">FAQs</li>
-                <li className="hover:text-[#7b1e3c] transition">Support</li>
-                <li className="hover:text-[#7b1e3c] transition">Contact</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Legal</h3>
-              <ul className="space-y-1">
-                <li className="hover:text-[#7b1e3c] transition">Privacy Policy</li>
-                <li className="hover:text-[#7b1e3c] transition">Terms of Use</li>
+              <h3 className="font-semibold text-slate-900 mb-3">Portal</h3>
+              <ul className="space-y-2 text-slate-600">
+                <li>
+                  <Link to="/login" className="hover:text-brand-600 transition">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register" className="hover:text-brand-600 transition">Register</Link>
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
-
-        <div className="border-t border-gray-200   :border-slate-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>© {new Date().getFullYear()} Study Sync. All rights reserved.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-[#7b1e3c] transition">Facebook</a>
-            <a href="#" className="hover:text-[#7b1e3c] transition">LinkedIn</a>
-            <a href="#" className="hover:text-[#7b1e3c] transition">GitHub</a>
+        <div className="border-t border-brand-100 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} BRACU Research Connect. All rights reserved.</p>
+          <div className="flex items-center gap-5 font-medium">
+            <a href="https://www.bracu.ac.bd" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600 transition">
+              BRAC University
+            </a>
+            <a href="https://cse.bracu.ac.bd" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600 transition">
+              CSE Department
+            </a>
           </div>
         </div>
       </div>

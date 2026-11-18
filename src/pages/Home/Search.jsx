@@ -348,36 +348,35 @@ const ResultRow = ({ item, onGo, active, query }) => {
     <button
       onClick={onGo}
       disabled={item.disabled}
-      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors flex items-start gap-3 ${
+      className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-start gap-3 ${
         active
-          ? "border-[#7b1e3c] bg-[#7b1e3c]/5"
-          : "border-gray-200   :border-slate-700"
+          ? "border-brand-500 bg-brand-50/70"
+          : "border-brand-100 bg-white"
       } ${
         item.disabled
           ? "opacity-50 cursor-not-allowed"
-          : "hover:bg-slate-50   :hover:bg-slate-800"
+          : "hover:bg-brand-50/40 hover:border-brand-200 cursor-pointer"
       }`}
       title={
         item.disabled ? "Sign in to resolve this link" : `Go to ${item.title}`
       }
     >
-      <span className="mt-0.5">
+      <span className="mt-0.5 text-brand-600">
         {item.icon ?? <ArrowRight className="w-4 h-4" />}
       </span>
       <span className="min-w-0">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-slate-900   :text-white truncate">
+          <span className="font-semibold text-slate-900 truncate">
             {highlight(item.title)}
           </span>
-          {/* Section tag removed from UI */}
         </div>
         {item.description ? (
-          <div className="text-xs text-slate-600   -300 mt-0.5 line-clamp-2">
+          <div className="text-xs text-slate-600 mt-0.5 line-clamp-2">
             {highlight(item.description)}
           </div>
         ) : null}
       </span>
-      <ArrowRight className="w-4 h-4 ml-auto mt-0.5 text-slate-400" />
+      <ArrowRight className="w-4 h-4 ml-auto mt-0.5 text-slate-400 shrink-0" />
     </button>
   );
 };
@@ -482,37 +481,36 @@ const Search = () => {
   };
 
   return (
-    <section className="bg-white    transition-colors mt-4">
-      {/* Width aligned with banner & other sections */}
-      <div className="container mx-auto px-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900   :text-white">
-            Quick Navigation
+    <section className="bg-white py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-2xl md:text-3xl font-extrabold font-display text-slate-900">
+            Quick <span className="text-brand-600">Navigation</span>
           </h2>
-          <div className="flex items-center gap-2 text-xs text-slate-500   -400">
-            <ArrowUpDown className="w-4 h-4" />
+          <div className="flex items-center gap-2 text-xs text-slate-500 bg-brand-50/60 border border-brand-100 px-3 py-1.5 rounded-full">
+            <ArrowUpDown className="w-3.5 h-3.5 text-brand-600" />
             Use ↑↓ then Enter
           </div>
         </div>
 
         <div className="relative">
-          <SearchIcon className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <SearchIcon className="w-5 h-5 text-brand-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             ref={inputRef}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="Try “proposal”, “groups”, “semester”, “meetings”…"
-            className="w-full pl-10 pr-3 py-3 rounded-lg border border-gray-300   :border-slate-700 bg-white   :bg-slate-800 text-slate-900   :text-white focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+            placeholder="Try “supervisors”, “synopsis”, “thesis process”, “proposal”…"
+            className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-brand-100 bg-white text-slate-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
           />
         </div>
 
         <div
           ref={listRef}
-          className="mt-4 space-y-2 max-h-[420px] overflow-auto rounded-lg"
+          className="mt-4 space-y-2 max-h-[420px] overflow-auto rounded-xl"
         >
           {!results.length ? (
-            <div className="p-6 border border-dashed rounded-lg text-slate-600   -300   :border-slate-700">
+            <div className="p-6 border border-dashed border-brand-200 rounded-xl text-slate-600 text-sm">
               {dq.trim()
                 ? "No matches. Try different keywords."
                 : userRole
@@ -532,7 +530,7 @@ const Search = () => {
           )}
         </div>
 
-        <div className="mt-4 text-xs text-slate-500   ">
+        <div className="mt-4 text-xs text-slate-500">
           {userRole
             ? `Role: ${userRole}. Results are limited to your access.`
             : "Not signed in — showing general features only."}

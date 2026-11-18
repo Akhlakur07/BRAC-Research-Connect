@@ -35,7 +35,7 @@ const ThesisProposalForm = () => {
         const data = await res.json();
         setGroup(data);
 
-        // 🚫 If already has supervisor, block
+        // ðŸš« If already has supervisor, block
         if (data?.assignedSupervisor) {
           setErrorMsg(
             "Your group already has a supervisor assigned. You cannot submit more proposals."
@@ -133,127 +133,125 @@ const ThesisProposalForm = () => {
     }
   };
 
+  const inputCls =
+    "w-full px-4 py-3 rounded-xl border border-brand-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-600";
+  const readCls =
+    "w-full px-4 py-3 rounded-xl border border-brand-100 bg-brand-50 text-slate-600 cursor-not-allowed";
+  const labelCls = "block mb-1.5 text-sm font-semibold text-slate-800";
+
   return (
-    <section className="min-h-screen bg-white    transition-colors px-6 py-12 flex justify-center">
-      <div className="max-w-3xl w-full bg-slate-100   :bg-slate-800 rounded-lg shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-slate-900   :text-white text-center">
-          Submit Thesis Proposal
-        </h2>
+    <section className="min-h-screen bg-white">
+      <div className="bg-gradient-to-b from-brand-50 to-white border-b border-brand-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center animate-fade-up">
+          <h2 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900">
+            Submit Thesis <span className="text-brand-600">Proposal</span>
+          </h2>
+        </div>
+      </div>
 
-        {/* Group Name */}
-        {group && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700   :text-gray-300">
-              Group Name
-            </label>
-            <input
-              type="text"
-              name="domain"
-              value={group?.name}
-              readOnly
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-                        focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm 
-                        bg-gray-100   :bg-gray-700   :text-gray-300 cursor-not-allowed"
-            />
-          </div>
-        )}
-
-        {/* Show error message instead of form */}
-        {errorMsg ? (
-          <p className="text-center text-red-500 mt-6">{errorMsg}</p>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6 mt-6">
-            {/* Title */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="w-full bg-white border border-brand-100 rounded-3xl shadow-lg p-6 sm:p-10 animate-fade-up">
+          {group && (
             <div>
-              <label className="block mb-1 font-medium">Title</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600"
-                required
-              />
-            </div>
-
-            {/* Abstract */}
-            <div>
-              <label className="block mb-1 font-medium">Abstract</label>
-              <textarea
-                name="abstract"
-                value={formData.abstract}
-                onChange={handleChange}
-                rows={5}
-                className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600"
-                required
-              />
-            </div>
-
-            {/* Domain */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700   :text-gray-300">
-                Domain
-              </label>
+              <label className={labelCls}>Group Name</label>
               <input
                 type="text"
                 name="domain"
-                value={group?.researchInterests?.join(", ") || ""}
+                value={group?.name}
                 readOnly
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-                          focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm 
-                          bg-gray-100   :bg-gray-700   :text-gray-300 cursor-not-allowed"
+                className={readCls}
               />
             </div>
+          )}
 
-            {/* Supervisor */}
-            <div>
-              <label className="block mb-1 font-medium">Supervisor</label>
-              {loading ? (
-                <p>Loading supervisors...</p>
-              ) : (
-                <select
-                  name="supervisor"
-                  value={formData.supervisor}
+          {errorMsg ? (
+            <p className="text-center text-brand-700 bg-brand-50 border border-brand-100 rounded-2xl p-4 mt-6 font-medium">
+              {errorMsg}
+            </p>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+              <div>
+                <label className={labelCls}>Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600"
+                  className={inputCls}
                   required
-                >
-                  <option value="">Select supervisor</option>
-                  {supervisors.map((sup) => (
-                    <option key={sup._id} value={sup._id}>
-                      {sup.name || sup.email}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
+                />
+              </div>
 
-            {/* Drive Link */}
-            <div>
-              <label className="block mb-1 font-medium">
-                Google Drive Link
-              </label>
-              <input
-                type="url"
-                name="driveLink"
-                value={formData.driveLink}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-md border border-gray-300   :border-gray-600"
-                required
-              />
-            </div>
+              <div>
+                <label className={labelCls}>Abstract</label>
+                <textarea
+                  name="abstract"
+                  value={formData.abstract}
+                  onChange={handleChange}
+                  rows={5}
+                  className={inputCls}
+                  required
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="w-full bg-[#7b1e3c] hover:bg-[#651730] text-white font-semibold py-3 rounded-lg transition"
-            >
-              Submit Proposal
-            </button>
-          </form>
-        )}
+              <div>
+                <label className={labelCls}>Domain</label>
+                <input
+                  type="text"
+                  name="domain"
+                  value={group?.researchInterests?.join(", ") || ""}
+                  readOnly
+                  className={readCls}
+                />
+              </div>
+
+              <div>
+                <label className={labelCls}>Supervisor</label>
+                {loading ? (
+                  <p className="text-slate-600">Loading supervisors...</p>
+                ) : (
+                  <select
+                    name="supervisor"
+                    value={formData.supervisor}
+                    onChange={handleChange}
+                    className={inputCls}
+                    required
+                  >
+                    <option value="">Select supervisor</option>
+                    {supervisors.map((sup) => (
+                      <option key={sup._id} value={sup._id}>
+                        {sup.name || sup.email}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
+              <div>
+                <label className={labelCls}>Google Drive Link</label>
+                <input
+                  type="url"
+                  name="driveLink"
+                  value={formData.driveLink}
+                  onChange={handleChange}
+                  className={inputCls}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 rounded-xl shadow-md hover:shadow-lg transition"
+              >
+                Submit Proposal
+              </button>
+            </form>
+          )}
+        </div>
+        </div>
       </div>
     </section>
-  );
-};
+  );};
 
 export default ThesisProposalForm;

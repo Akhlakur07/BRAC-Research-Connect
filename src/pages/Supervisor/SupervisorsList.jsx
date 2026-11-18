@@ -128,6 +128,22 @@ const SupervisorsList = () => {
     });
   }, [supervisors, search, statusFilter, levelFilter, designationFilter]);
 
+  const PAGE_SIZE = 18;
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    setPage(1);
+  }, [search, statusFilter, levelFilter, designationFilter]);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paged = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+  const goToPage = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const hasActiveFilters =
     search.trim() !== "" ||
     statusFilter !== "all" ||
@@ -153,26 +169,14 @@ const SupervisorsList = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-8 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">
               BRACU CSE Thesis <span className="text-[#7b1e3c]">Supervisors</span>
             </h1>
-            <p className="text-gray-600 mt-2 max-w-2xl">
-              Live supervising directory from{" "}
-              <a
-                href="https://cse.bracu.ac.bd/thesis/supervising/list"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7b1e3c] font-medium hover:underline inline-flex items-center gap-1"
-              >
-                cse.bracu.ac.bd/thesis/supervising/list
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </p>
           </div>
 
           <button
@@ -343,8 +347,9 @@ const SupervisorsList = () => {
             )}
           </div>
         ) : (
+          <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((sup) => (
+            {paged.map((sup) => (
               <div
                 key={sup.id}
                 className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition flex flex-col justify-between"
@@ -427,6 +432,39 @@ const SupervisorsList = () => {
               </div>
             ))}
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-10">
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm font-semibold text-slate-700 hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              >
+                Prev
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => goToPage(p)}
+                  className={`w-10 h-10 rounded-lg text-sm font-semibold transition ${
+                    p === currentPage
+                      ? "bg-brand-600 text-white shadow-sm"
+                      : "bg-white border border-gray-200 text-slate-700 hover:bg-brand-50"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm font-semibold text-slate-700 hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              >
+                Next
+              </button>
+            </div>
+          )}
+          </>
         )}
       </div>
     </div>

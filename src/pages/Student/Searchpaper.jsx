@@ -185,14 +185,14 @@ const Searchpaper = () => {
       : false;
 
     return (
-      <div className="border border-gray-200   :border-slate-700 p-4 mb-2 rounded bg-slate-50   ">
-        <h3 className="text-lg font-semibold text-slate-900   :text-white">
+      <div className="border border-brand-100 p-4 mb-2 rounded bg-brand-50/60   ">
+        <h3 className="text-lg font-semibold text-brand-700">
           {paper.title}
         </h3>
-        <p className="text-sm text-slate-700   :text-gray-300">
+        <p className="text-sm text-slate-700">
           Authors: {(paper.authors && paper.authors.join(", ")) || "Unknown"}
         </p>
-        <p className="text-sm mt-2 text-slate-800   :text-gray-200">
+        <p className="text-sm mt-2 text-brand-700">
           {paper.summary}
         </p>
         <div className="flex items-center gap-4 mt-2">
@@ -233,8 +233,9 @@ const Searchpaper = () => {
   };
 
   return (
-    <div className="p-6 mx-[9%]">
-      <h2 className="text-2xl font-bold mb-4 text-slate-900   :text-white">
+    <div className="min-h-screen bg-slate-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <h2 className="font-display text-2xl font-bold mb-4 text-brand-700">
         Search Academic Papers
       </h2>
 
@@ -244,7 +245,7 @@ const Searchpaper = () => {
           placeholder="Enter keyword or topic"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border border-slate-300   :border-slate-700 bg-white   :bg-slate-800 text-slate-900   :text-white p-2 flex-grow mr-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
+          className="border border-brand-200 bg-white text-brand-700 p-2 flex-grow mr-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7b1e3c]"
         />
         <button
           onClick={handleSearch}
@@ -257,7 +258,7 @@ const Searchpaper = () => {
       {/* Search Results */}
       {papers.length > 0 && (
         <div className="mt-6">
-          <h3 className="text-xl font-bold mb-2 text-slate-900   :text-white">
+          <h3 className="text-xl font-bold mb-2 text-brand-700">
             Search Results
           </h3>
           {papers.map((paper) => (
@@ -268,11 +269,11 @@ const Searchpaper = () => {
 
       {/* Suggested Papers (Random 5) */}
       <div className="mt-8">
-        <h3 className="text-xl font-bold mb-2 text-slate-900   :text-white">
+        <h3 className="text-xl font-bold mb-2 text-brand-700">
           Suggested Papers
         </h3>
         {randomPapers.length === 0 ? (
-          <p className="text-sm text-slate-600   :text-gray-400">
+          <p className="text-sm text-slate-600">
             No suggestions available.
           </p>
         ) : (
@@ -289,19 +290,19 @@ const Searchpaper = () => {
             className="absolute inset-0 bg-black/50"
             onClick={closeRecommendModal}
           />
-          <div className="relative z-10 w-full max-w-2xl bg-white   :bg-slate-800 rounded-lg shadow-lg p-5">
+          <div className="relative z-10 w-full max-w-2xl bg-white rounded-2xl shadow-lg shadow-brand-100/50 p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-xl font-semibold text-slate-900   :text-white">
+                <h3 className="text-xl font-semibold text-brand-700">
                   Recommend Paper
                 </h3>
-                <p className="text-sm text-slate-600   :text-gray-400 mt-1">
+                <p className="text-sm text-slate-600 mt-1">
                   {selectedPaper?.title}
                 </p>
               </div>
               <button
                 onClick={closeRecommendModal}
-                className="text-slate-600   :text-gray-300 hover:text-slate-800   :hover:text-white"
+                className="text-slate-600 hover:text-brand-600"
                 aria-label="Close"
                 title="Close"
               >
@@ -310,27 +311,27 @@ const Searchpaper = () => {
             </div>
 
             <div className="mt-4">
-              <h4 className="text-base font-semibold mb-2 text-slate-900   :text-white">
+              <h4 className="text-base font-semibold mb-2 text-brand-700">
                 Your Groups
               </h4>
 
               {groupsLoading && (
-                <p className="text-sm text-slate-600   :text-gray-400">
+                <p className="text-sm text-slate-600">
                   Loading groups…
                 </p>
               )}
               {groupsError && (
-                <p className="text-sm text-red-600">{groupsError}</p>
+                <p className="text-sm text-brand-600">{groupsError}</p>
               )}
 
               {!groupsLoading && !groupsError && groups.length === 0 && (
-                <p className="text-sm text-slate-600   :text-gray-400">
+                <p className="text-sm text-slate-600">
                   No groups assigned yet.
                 </p>
               )}
 
               {!groupsLoading && groups.length > 0 && (
-                <ul className="divide-y rounded border border-slate-200   :border-slate-700">
+                <ul className="divide-y rounded border border-brand-100">
                   {groups.map((g) => {
                     const already = (
                       recommendedForPaper[selectedPaper?.id] || []
@@ -343,10 +344,10 @@ const Searchpaper = () => {
                         className="p-3 flex items-center justify-between"
                       >
                         <div>
-                          <div className="font-medium text-slate-900   :text-white">
+                          <div className="font-medium text-brand-700">
                             {g.name}
                           </div>
-                          <div className="text-xs text-slate-600   :text-gray-400 mt-0.5">
+                          <div className="text-xs text-slate-600 mt-0.5">
                             Members: {(g.members || []).length} • Interests:{" "}
                             {(g.researchInterests || []).join(", ") || "—"}
                           </div>
@@ -354,7 +355,7 @@ const Searchpaper = () => {
                         <button
                           className={`px-3 py-1.5 text-sm rounded transition-colors ${
                             already
-                              ? "bg-slate-300 text-slate-600 cursor-not-allowed   :bg-slate-700   -400"
+                              ? "bg-brand-200 text-slate-600 cursor-not-allowed   -400"
                               : "bg-[#7b1e3c] hover:bg-[#691832] text-white"
                           }`}
                           disabled={already || isSaving}
@@ -384,6 +385,7 @@ const Searchpaper = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/Auth/AuthContext";
+import React, { useEffect, useState } from "react";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -18,7 +17,6 @@ const ManageUsers = () => {
   const [editData, setEditData] = useState({ name: "", photoUrl: "" });
   const [loading, setLoading] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
-  const { deleteCurrentUser } = useContext(AuthContext);
 
   const fetchUsers = async () => {
     try {
@@ -110,13 +108,13 @@ const ManageUsers = () => {
   };
 
   return (
-    <section className="bg-white    min-h-screen p-6 transition-colors">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-[#7b1e3c] mb-6">Manage Users</h1>
+    <section className="bg-white min-h-screen transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <h1 className="font-display text-3xl font-bold text-[#7b1e3c] mb-6">Manage Users</h1>
 
-        <div className="bg-white   :bg-slate-800 rounded-lg shadow-md overflow-x-auto">
+        <div className="bg-white rounded-2xl shadow-md overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-gray-100   :bg-slate-700">
+            <thead className="bg-brand-50">
               <tr>
                 <th className="py-2 px-4 text-left">Name</th>
                 <th className="py-2 px-4 text-left">Email</th>
@@ -129,7 +127,7 @@ const ManageUsers = () => {
               {users
                 .filter((u) => u.role !== "admin")
                 .map((u) => (
-                  <tr key={u.id} className="border-t   :border-slate-600">
+                  <tr key={u.id} className="border-t">
                     <td className="py-2 px-4">
                       {editUserId === u.id ? (
                         <input
@@ -170,14 +168,14 @@ const ManageUsers = () => {
                           <button
                             disabled={loading}
                             onClick={() => handleSaveEdit(u.id)}
-                            className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-700"
+                            className="px-3 py-1 bg-emerald-500 text-white rounded hover:bg-brand-700"
                           >
                             {loading ? "Saving..." : "Save"}
                           </button>
                           <button
                             disabled={loading}
                             onClick={handleCancelEdit}
-                            className="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-600"
+                            className="px-3 py-1 bg-brand-300 text-white rounded hover:bg-brand-700"
                           >
                             Cancel
                           </button>
@@ -186,7 +184,7 @@ const ManageUsers = () => {
                         <>
                           <button
                             onClick={() => handleEditClick(u)}
-                            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-700"
+                            className="px-3 py-1 bg-brand-500 text-white rounded hover:bg-brand-700"
                           >
                             Edit
                           </button>
@@ -194,7 +192,7 @@ const ManageUsers = () => {
                             onClick={() =>
                               handleDeleteUser(u.id, u.role, u.email)
                             }
-                            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700"
+                            className="px-3 py-1 bg-brand-500 text-white rounded hover:bg-brand-700"
                           >
                             Delete
                           </button>

@@ -196,50 +196,56 @@ const CreateGroup = () => {
 
   // Render
   return (
-    <section className="px-6 py-10 max-w-3xl mx-auto">
-      <h1 className="text-2xl md:text-3xl font-semibold text-slate-900   :text-white">
-        Create Group
-      </h1>
-      <p className="text-slate-600   :text-gray-300 mt-1">
-        Start a research group. You’ll be the{" "}
-        <span className="font-medium text-[#7b1e3c]">group admin</span>. Max
-        members: 5.
-      </p>
+    <section className="min-h-screen bg-white">
+      <div className="bg-gradient-to-b from-brand-50 to-white border-b border-brand-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center animate-fade-up">
+          <h1 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900">
+            Create <span className="text-brand-600">Group</span>
+          </h1>
+          <p className="text-slate-600 mt-3">
+            Start a research group. You’ll be the{" "}
+            <span className="font-semibold text-brand-600">group admin</span>. Max
+            members: 5.
+          </p>
+        </div>
+      </div>
 
-      <div className="mt-6 rounded-2xl border border-gray-200   :border-gray-700 bg-white    shadow-sm p-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="mt-6 rounded-2xl border border-brand-100 bg-white shadow-sm p-5">
         {loadingUser ? (
-          <div className="text-slate-600   :text-gray-300">
-            Checking your account…
+          <div className="text-slate-600">
+            Checking your accountâ€¦
           </div>
         ) : !routeUserId ? (
-          <div className="text-amber-700   :text-amber-300">
+          <div className="text-brand-700">
             No user id found in the URL. Make sure your route is like{" "}
             <code>/create-group/:id</code>.
           </div>
         ) : !user ? (
-          <div className="text-amber-700   :text-amber-300">
+          <div className="text-brand-700">
             Please log in to create a group.
           </div>
         ) : !dbUser ? (
-          <div className="text-amber-700   :text-amber-300">
-            Couldn’t find your BRACU account in the database. Contact admin.
+          <div className="text-brand-700">
+            Couldnâ€™t find your BRACU account in the database. Contact admin.
           </div>
         ) : dbUser.role !== "student" ? (
-          <div className="text-amber-700   :text-amber-300">
+          <div className="text-brand-700">
             Only students can create groups.
           </div>
         ) : checkingAdminGroup || checkingMembership ? (
-          <div className="text-slate-600   :text-gray-300">
-            Checking your group status…
+          <div className="text-slate-600">
+            Checking your group statusâ€¦
           </div>
         ) : alreadyBlocked ? (
-          <div className="rounded-xl border border-gray-200   :border-gray-700 p-5 bg-gray-50   :bg-slate-800">
-            <p className="text-[#7b1e3c] font-semibold">
-              You already belong to a group. You can’t create another group.
+          <div className="rounded-xl border border-brand-100 p-5 bg-brand-50">
+            <p className="text-brand-600 font-semibold">
+              You already belong to a group. You canâ€™t create another group.
             </p>
 
             {myAdminGroup ? (
-              <div className="mt-2 text-sm text-slate-600   :text-gray-300 space-y-1">
+              <div className="mt-2 text-sm text-slate-600 space-y-1">
                 <div>
                   <span className="font-medium">(You are the Admin) Name:</span>{" "}
                   {myAdminGroup.name}
@@ -255,7 +261,7 @@ const CreateGroup = () => {
                       {myAdminGroup.researchInterests.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-[#7b1e3c]/10 text-[#7b1e3c]"
+                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-brand-100 text-brand-600"
                         >
                           {tag}
                         </span>
@@ -264,7 +270,7 @@ const CreateGroup = () => {
                   )}
               </div>
             ) : memberGroup ? (
-              <div className="mt-2 text-sm text-slate-600   :text-gray-300 space-y-1">
+              <div className="mt-2 text-sm text-slate-600 space-y-1">
                 <div>
                   <span className="font-medium">Group Name:</span>{" "}
                   {memberGroup.name}
@@ -280,7 +286,7 @@ const CreateGroup = () => {
                       {memberGroup.researchInterests.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-[#7b1e3c]/10 text-[#7b1e3c]"
+                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-brand-100 text-brand-600"
                         >
                           {tag}
                         </span>
@@ -294,24 +300,24 @@ const CreateGroup = () => {
           <form onSubmit={submit} className="space-y-5">
             {/* Group Name */}
             <div>
-              <label className="block text-sm font-medium text-slate-700   :text-gray-200 mb-1">
-                Group Name <span className="text-red-600">*</span>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Group Name <span className="text-brand-600">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-gray-300   :border-gray-700 bg-white   :bg-slate-800 px-3 py-2 outline-none focus:ring-2 focus:ring-[#7b1e3c] focus:border-[#7b1e3c] text-slate-900   :text-gray-100"
+                className="w-full rounded-xl border border-brand-100 bg-white px-4 py-3 outline-none shadow-sm focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-slate-900"
                 placeholder="e.g., Vision & NLP Group"
               />
             </div>
 
             {/* Research Interests */}
             <div>
-              <label className="block text-sm font-medium text-slate-700   :text-gray-200 mb-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
                 Research Interests (one or many){" "}
-                <span className="text-red-600">*</span>
+                <span className="text-brand-600">*</span>
               </label>
 
               <div className="flex gap-2">
@@ -320,13 +326,13 @@ const CreateGroup = () => {
                   value={interestInput}
                   onChange={(e) => setInterestInput(e.target.value)}
                   onKeyDown={onKeyDownInterest}
-                  className="flex-1 rounded-lg border border-gray-300   :border-gray-700 bg-white   :bg-slate-800 px-3 py-2 outline-none focus:ring-2 focus:ring-[#7b1e3c] focus:border-[#7b1e3c] text-slate-900   :text-gray-100"
+                  className="flex-1 rounded-xl border border-brand-100 bg-white px-4 py-3 outline-none shadow-sm focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-slate-900"
                   placeholder="Add and press Enter (or comma). e.g., NLP, Computer Vision"
                 />
                 <button
                   type="button"
                   onClick={addInterest}
-                  className="px-4 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition"
+                  className="px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition"
                 >
                   Add
                 </button>
@@ -338,17 +344,17 @@ const CreateGroup = () => {
                   {interests.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-[#7b1e3c]/10 text-[#7b1e3c]"
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-brand-100 text-brand-600"
                     >
                       {tag}
                       <button
                         type="button"
                         onClick={() => removeInterest(tag)}
-                        className="rounded-full w-5 h-5 inline-flex items-center justify-center bg-[#7b1e3c]/20 hover:bg-[#7b1e3c]/30"
+                        className="rounded-full w-5 h-5 inline-flex items-center justify-center bg-brand-200 hover:bg-brand-300"
                         aria-label={`Remove ${tag}`}
                         title="Remove"
                       >
-                        ×
+                        Ã—
                       </button>
                     </span>
                   ))}
@@ -361,21 +367,24 @@ const CreateGroup = () => {
               <button
                 type="submit"
                 disabled={!canSubmit || submitting}
-                className="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition disabled:opacity-50"
+                className="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition disabled:opacity-50"
               >
-                {submitting ? "Creating…" : "Create Group"}
+                {submitting ? "Creatingâ€¦" : "Create Group"}
               </button>
             </div>
 
-            <p className="text-xs text-slate-500   :text-gray-400">
+            <p className="text-xs text-slate-500">
               On create: assigned supervisor is <em>None</em>, proposals
               submitted to is <em>empty</em>.
             </p>
           </form>
         )}
       </div>
+        </div>
+      </div>
     </section>
   );
 };
 
 export default CreateGroup;
+
