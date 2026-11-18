@@ -11,6 +11,7 @@ import {
   Trash2,
   Eye,
 } from "lucide-react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -285,7 +286,7 @@ const ScheduleMeetings = () => {
             </h2>
 
             {loading ? (
-              <div className="text-slate-500">Loading groups...</div>
+              <LoadingSpinner message="Loading groups..." className="py-6" />
             ) : assignedGroups.length === 0 ? (
               <div className="text-slate-500">No groups assigned yet.</div>
             ) : (
@@ -316,7 +317,7 @@ const ScheduleMeetings = () => {
             </h2>
 
             {loading ? (
-              <div className="text-slate-500">Loading meetings...</div>
+              <LoadingSpinner message="Loading meetings..." className="py-6" />
             ) : upcomingMeetings.length === 0 ? (
               <div className="text-slate-500">No upcoming meetings.</div>
             ) : (
@@ -385,7 +386,7 @@ const ScheduleMeetings = () => {
             </h2>
 
             {loading ? (
-              <div className="text-slate-500">Loading meetings...</div>
+              <LoadingSpinner message="Loading meetings..." className="py-6" />
             ) : pastMeetings.length === 0 ? (
               <div className="text-slate-500">No past meetings.</div>
             ) : (

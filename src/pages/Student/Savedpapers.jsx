@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useLoaderData } from "react-router";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Savedpapers = () => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -62,7 +63,7 @@ const Savedpapers = () => {
   };
 
   if (loading) {
-    return <p className="p-6 text-slate-700">Loading your saved papers...</p>;
+    return <LoadingSpinner fullScreen message="Loading your saved papers..." />;
   }
 
   if (bookmarks.length === 0) {

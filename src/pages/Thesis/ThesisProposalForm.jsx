@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useLoaderData } from "react-router";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const ThesisProposalForm = () => {
   const { user } = useContext(AuthContext);
@@ -209,7 +210,7 @@ const ThesisProposalForm = () => {
               <div>
                 <label className={labelCls}>Supervisor</label>
                 {loading ? (
-                  <p className="text-slate-600">Loading supervisors...</p>
+                  <LoadingSpinner message="Loading supervisors..." className="py-4" />
                 ) : (
                   <select
                     name="supervisor"

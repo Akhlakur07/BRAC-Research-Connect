@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useLoaderData, Link } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Users, FileText, Tag } from "lucide-react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -118,8 +119,8 @@ const SupervisorGroups = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {loading ? (
-          <div className="rounded-2xl border border-brand-100 p-8 bg-white shadow-sm text-center">
-            <p className="text-slate-600">Loading…</p>
+          <div className="rounded-2xl border border-brand-100 p-4 bg-white shadow-sm">
+            <LoadingSpinner message="Loading accepted groups..." />
           </div>
         ) : error ? (
           <div className="rounded-2xl border border-brand-200 p-8 bg-brand-50 text-center">

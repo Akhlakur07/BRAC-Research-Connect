@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useLoaderData, Link } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   FileText,
   ExternalLink,
@@ -159,8 +160,8 @@ const ViewProposals = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {loading ? (
-          <div className="rounded-2xl border border-brand-100 p-8 bg-white shadow-sm text-center text-slate-600">
-            Loading…
+          <div className="rounded-2xl border border-brand-100 p-4 bg-white shadow-sm">
+            <LoadingSpinner message="Loading proposals..." />
           </div>
         ) : !group ? (
           <div className="p-8 rounded-2xl border border-brand-100 bg-brand-50 text-slate-700 text-center">

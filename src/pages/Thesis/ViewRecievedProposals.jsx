@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   FileText,
   Check,
@@ -192,8 +193,8 @@ const ViewRecievedProposals = () => {
             Couldn’t resolve your supervisor account.
           </div>
         ) : loading ? (
-          <div className="p-8 rounded-2xl border border-brand-100 shadow-sm text-slate-600 text-center">
-            Loading proposals…
+          <div className="p-4 rounded-2xl border border-brand-100 shadow-sm bg-white">
+            <LoadingSpinner message="Loading proposals..." />
           </div>
         ) : error ? (
           <div className="p-6 rounded-2xl border border-brand-200 bg-brand-50 text-brand-700 text-center font-medium">

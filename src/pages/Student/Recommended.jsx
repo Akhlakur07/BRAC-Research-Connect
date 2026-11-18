@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useLoaderData } from "react-router";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -85,9 +86,7 @@ const Recommended = () => {
         </header>
 
         {loading && (
-          <div className="text-slate-600">
-            Loading recommendations…
-          </div>
+          <LoadingSpinner message="Loading recommendations..." />
         )}
 
         {!loading && error && (

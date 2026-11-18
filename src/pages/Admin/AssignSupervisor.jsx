@@ -8,6 +8,7 @@ import {
   Users,
   Calendar as CalendarIcon,
 } from "lucide-react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -257,9 +258,7 @@ const AssignSupervisor = () => {
         {/* Content */}
         <div className="rounded-2xl border border-brand-100 bg-white">
           {loading ? (
-            <div className="p-6 text-slate-600">
-              Loading…
-            </div>
+            <LoadingSpinner message="Loading proposals..." />
           ) : error ? (
             <div className="p-6 text-brand-600">{error}</div>
           ) : proposals.length === 0 ? (
