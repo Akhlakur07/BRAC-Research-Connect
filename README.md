@@ -3,7 +3,6 @@
 > **A full-stack thesis management and research collaboration portal for BRAC University CSE students, supervisors, and administrators.**
 
 🌐 **Live Site:** [https://brac-research-connect.vercel.app/](https://brac-research-connect.vercel.app/)  
-🔗 **Backend API:** [https://bracu-research-server-teal.vercel.app/](https://bracu-research-server-teal.vercel.app/)
 
 ---
 
