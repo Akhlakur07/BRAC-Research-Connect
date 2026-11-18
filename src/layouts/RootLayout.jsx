@@ -1,18 +1,26 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Navbar from "../pages/Shared/Navbar";
 import Footer from "../pages/Shared/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SmoothScroll from "../components/SmoothScroll";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const RootLayout = () => {
+  const navigation = useNavigation();
+  const isRouteLoading = navigation.state === "loading";
+
   return (
     <div className="min-h-screen flex flex-col" data-theme="light">
       <SmoothScroll />
       <Navbar />
       <main className="flex-1">
-        <Outlet />
+        {isRouteLoading ? (
+          <LoadingSpinner fullScreen message="Loading page..." />
+        ) : (
+          <Outlet />
+        )}
       </main>
       <Footer />
       <ToastContainer

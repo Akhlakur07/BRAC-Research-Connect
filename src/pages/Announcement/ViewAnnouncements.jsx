@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -23,7 +24,7 @@ const ViewAnnouncements = () => {
     fetchAnnouncements();
   }, []);
 
-  if (loading) return <p className="p-6 text-center text-slate-500">Loading announcements...</p>;
+  if (loading) return <LoadingSpinner fullScreen message="Loading announcements..." />;
 
   if (announcements.length === 0)
     return <p className="p-6 text-center text-slate-500">No announcements available.</p>;

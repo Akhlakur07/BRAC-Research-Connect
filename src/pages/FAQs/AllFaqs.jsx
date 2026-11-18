@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Search, HelpCircle } from "lucide-react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const AllFaqs = () => {
   const [faqs, setFaqs] = useState([]);
@@ -62,7 +63,7 @@ const AllFaqs = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {loading ? (
-          <p className="text-center text-slate-500">Loading FAQs...</p>
+          <LoadingSpinner message="Loading FAQs..." />
         ) : error ? (
           <p className="text-center text-red-600">{error}</p>
         ) : !filtered.length ? (

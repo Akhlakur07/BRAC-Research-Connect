@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Link, useLoaderData, useNavigate } from "react-router";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -351,7 +352,7 @@ const StudentDashboard = () => {
               </h2>
 
               {loading ? (
-                <div className="text-slate-500">Loading proposals...</div>
+                <LoadingSpinner message="Loading proposals..." className="py-6" />
               ) : proposals.length === 0 ? (
                 <div className="text-slate-500">
                   No proposals found. Submit your first proposal.
@@ -477,7 +478,7 @@ const StudentDashboard = () => {
               </div>
 
               {loading ? (
-                <div className="text-slate-500">Loading meetings...</div>
+                <LoadingSpinner message="Loading meetings..." className="py-6" />
               ) : meetings.length === 0 ? (
                 <div className="text-slate-500">No upcoming meetings.</div>
               ) : (
@@ -530,7 +531,7 @@ const StudentDashboard = () => {
               </h3>
 
               {loadingInvites ? (
-                <div className="text-slate-500">Loading invitations…</div>
+                <LoadingSpinner message="Loading invitations..." className="py-6" />
               ) : joinRequests.length === 0 ? (
                 <div className="text-slate-500">No invitations yet.</div>
               ) : (

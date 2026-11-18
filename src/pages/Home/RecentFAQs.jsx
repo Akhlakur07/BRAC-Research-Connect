@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowRight } from "lucide-react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const RecentFAQs = () => {
   const [faqs, setFaqs] = useState([]);
@@ -27,11 +28,7 @@ const RecentFAQs = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="py-12 text-center text-slate-500 text-sm">
-        Loading FAQs...
-      </div>
-    );
+    return <LoadingSpinner message="Loading FAQs..." />;
   }
   if (error) {
     return (

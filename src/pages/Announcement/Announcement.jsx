@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Plus, Eye, Edit2, Trash2, X } from "lucide-react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useLoaderData } from "react-router";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -137,7 +138,7 @@ const Announcement = () => {
 
         {/* Announcements List */}
         {loading ? (
-          <p className="text-slate-500">Loading...</p>
+          <LoadingSpinner message="Loading announcements..." />
         ) : (
           <div className="space-y-4">
             {announcements.map((a) => (

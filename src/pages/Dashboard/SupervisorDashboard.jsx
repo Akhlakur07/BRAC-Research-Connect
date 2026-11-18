@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useLoaderData } from "react-router";
 import { FileText, Users, BookOpen, Search } from "lucide-react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -229,7 +230,7 @@ const SupervisorDashboard = () => {
               </h2>
 
               {loading ? (
-                <div className="text-slate-500">Loading groups…</div>
+                <LoadingSpinner message="Loading groups..." className="py-6" />
               ) : semestersWithGroups.length === 0 ? (
                 <div className="text-slate-500">
                   No groups assigned to any semester yet.
@@ -308,7 +309,7 @@ const SupervisorDashboard = () => {
               </div>
 
               {loading ? (
-                <div className="text-slate-500">Loading proposals...</div>
+                <LoadingSpinner message="Loading proposals..." className="py-6" />
               ) : proposals.length === 0 ? (
                 <div className="text-slate-500">
                   No proposals submitted yet.

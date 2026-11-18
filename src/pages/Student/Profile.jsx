@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Profile = () => {
   const [student, setStudent] = useState(null);
@@ -127,11 +128,7 @@ const Profile = () => {
   };
 
   if (loading) {
-    return (
-      <div className="p-6 bg-white    rounded-2xl shadow-sm">
-        <p className="text-slate-500">Loading profile...</p>
-      </div>
-    );
+    return <LoadingSpinner fullScreen message="Loading profile..." />;
   }
 
   if (!student) {
