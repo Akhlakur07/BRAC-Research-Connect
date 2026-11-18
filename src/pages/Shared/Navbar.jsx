@@ -5,16 +5,144 @@ import React, {
   useMemo,
   useState,
   useCallback,
+  useRef,
 } from "react";
-import { NavLink, useLoaderData } from "react-router";
+import { NavLink, useLoaderData, useLocation } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
-import { Bell, Menu, X } from "lucide-react";
+import { Bell, ChevronDown, Menu, X } from "lucide-react";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const linkBase =
   "block px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:text-brand-600 hover:bg-brand-50/70 whitespace-nowrap";
 const linkActive = "text-brand-600 bg-brand-50 font-semibold shadow-xs";
+
+const RESEARCH_ITEMS = [
+  { to: "/supervisors", label: "Supervisors" },
+  { to: "/synopsis", label: "Synopsis" },
+];
+
+const STUDENT_HUB_ITEMS = [
+  { to: "/thesis-proposal", label: "Proposal Submission" },
+  { to: "/view-announcement", label: "Announcements" },
+];
+
+const DesktopDropdown = ({ label, items }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const { pathname } = useLocation();
+  const isChildActive = items.some((item) => pathname === item.to);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", handleOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open]);
+
+  return (
+    <li className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={`${linkBase} flex items-center gap-1 cursor-pointer ${
+          isChildActive ? linkActive : ""
+        }`}
+      >
+        <span>{label}</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute left-0 mt-2 w-52 bg-white/95 backdrop-blur-xl border border-brand-100 rounded-xl shadow-lg shadow-brand-950/10 p-1.5 z-50"
+        >
+          {items.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? "text-brand-600 bg-brand-50 font-semibold"
+                    : "text-slate-700 hover:text-brand-600 hover:bg-brand-50/70"
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </li>
+  );
+};
+
+const MobileDropdown = ({ label, items, onNavigate }) => {
+  const { pathname } = useLocation();
+  const isChildActive = items.some((item) => pathname === item.to);
+  const [open, setOpen] = useState(isChildActive);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        className={`${linkBase} w-full flex items-center justify-between cursor-pointer ${
+          isChildActive ? linkActive : ""
+        }`}
+      >
+        <span>{label}</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {open && (
+        <div className="mt-1 ml-3 pl-3 border-l border-brand-100 space-y-1">
+          {items.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={onNavigate}
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : ""}`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -146,16 +274,14 @@ const Navbar = () => {
         {/* Desktop links */}
         <ul className="hidden lg:flex items-center gap-1 text-slate-700">
           <LinkItem to="/">Home</LinkItem>
-          <LinkItem to="/supervisors">Supervisors</LinkItem>
-          <LinkItem to="/synopsis">Synopsis</LinkItem>
+          <DesktopDropdown label="Research" items={RESEARCH_ITEMS} />
           <LinkItem to="/thesis-process">Thesis Process</LinkItem>
 
           {roleUser?.role === "student" && (
-            <LinkItem to="/thesis-proposal">Proposal Submission</LinkItem>
+            <DesktopDropdown label="Student Hub" items={STUDENT_HUB_ITEMS} />
           )}
 
-          {(roleUser?.role === "supervisor" ||
-            roleUser?.role === "student") && (
+          {roleUser?.role === "supervisor" && (
             <LinkItem to="/view-announcement">Announcements</LinkItem>
           )}
 
@@ -255,16 +381,22 @@ const Navbar = () => {
       >
         <div className="px-4 sm:px-6 py-4 space-y-1.5 text-slate-800 font-medium">
           <LinkItem to="/">Home</LinkItem>
-          <LinkItem to="/supervisors">Supervisors</LinkItem>
-          <LinkItem to="/synopsis">Synopsis</LinkItem>
+          <MobileDropdown
+            label="Research"
+            items={RESEARCH_ITEMS}
+            onNavigate={() => setMobileOpen(false)}
+          />
           <LinkItem to="/thesis-process">Thesis Process</LinkItem>
 
           {roleUser?.role === "student" && (
-            <LinkItem to="/thesis-proposal">Proposal Submission</LinkItem>
+            <MobileDropdown
+              label="Student Hub"
+              items={STUDENT_HUB_ITEMS}
+              onNavigate={() => setMobileOpen(false)}
+            />
           )}
 
-          {(roleUser?.role === "supervisor" ||
-            roleUser?.role === "student") && (
+          {roleUser?.role === "supervisor" && (
             <LinkItem to="/view-announcement">Announcements</LinkItem>
           )}
 
