@@ -128,6 +128,22 @@ const SynopsisList = () => {
     });
   }, [synopses, search]);
 
+  const PAGE_SIZE = 12;
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paged = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+  const goToPage = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const hasActiveFilters = search.trim() !== "";
 
   const clearFilters = () => {
@@ -253,68 +269,102 @@ const SynopsisList = () => {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((item) => (
-              <div
-                key={item.id || item.url}
-                className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition p-6 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start gap-2.5 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-[#7b1e3c]/10 text-[#7b1e3c] flex items-center justify-center shrink-0 mt-0.5">
-                      <BookOpen className="w-4 h-4" />
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paged.map((item) => (
+                <div
+                  key={item.id || item.url}
+                  className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition p-6 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-start gap-2.5 mb-4">
+                      <div className="w-8 h-8 rounded-lg bg-[#7b1e3c]/10 text-[#7b1e3c] flex items-center justify-center shrink-0 mt-0.5">
+                        <BookOpen className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-base font-semibold text-slate-900 leading-snug">
+                        {item.title}
+                      </h3>
                     </div>
-                    <h3 className="text-base font-semibold text-slate-900 leading-snug">
-                      {item.title}
-                    </h3>
+
+                    {/* Supervisor Info */}
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100 mb-5">
+                      <SmallAvatar
+                        photoUrl={item.photoUrl}
+                        name={item.supervisorName}
+                      />
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-900 truncate">
+                          {item.supervisorName || "BRACU CSE Faculty"}
+                        </p>
+                        {item.supervisorEmail && (
+                          <a
+                            href={`mailto:${item.supervisorEmail}`}
+                            className="text-xs text-slate-600 hover:text-[#7b1e3c] flex items-center gap-1 truncate"
+                          >
+                            <Mail className="w-3 h-3 shrink-0" />
+                            <span className="truncate">{item.supervisorEmail}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Supervisor Info */}
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100 mb-5">
-                    <SmallAvatar
-                      photoUrl={item.photoUrl}
-                      name={item.supervisorName}
-                    />
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-slate-900 truncate">
-                        {item.supervisorName || "BRACU CSE Faculty"}
-                      </p>
-                      {item.supervisorEmail && (
-                        <a
-                          href={`mailto:${item.supervisorEmail}`}
-                          className="text-xs text-slate-600 hover:text-[#7b1e3c] flex items-center gap-1 truncate"
-                        >
-                          <Mail className="w-3 h-3 shrink-0" />
-                          <span className="truncate">{item.supervisorEmail}</span>
-                        </a>
-                      )}
-                    </div>
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-gray-100">
+                    <button
+                      onClick={() => openDetails(item)}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition text-xs font-semibold"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      View Details
+                    </button>
+
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-slate-700 hover:bg-gray-100 transition text-xs font-semibold"
+                    >
+                      BRACU CSE Link
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                {/* Actions */}
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-gray-100">
+            {totalPages > 1 && (
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-10">
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm font-semibold text-slate-700 hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                >
+                  Prev
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                   <button
-                    onClick={() => openDetails(item)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#7b1e3c] text-white hover:bg-[#651730] transition text-xs font-semibold"
+                    key={p}
+                    onClick={() => goToPage(p)}
+                    className={`w-10 h-10 rounded-lg text-sm font-semibold transition ${
+                      p === currentPage
+                        ? "bg-brand-600 text-white shadow-sm"
+                        : "bg-white border border-gray-200 text-slate-700 hover:bg-brand-50"
+                    }`}
                   >
-                    <FileText className="w-3.5 h-3.5" />
-                    View Details
+                    {p}
                   </button>
-
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-slate-700 hover:bg-gray-100 transition text-xs font-semibold"
-                  >
-                    BRACU CSE Link
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
+                ))}
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm font-semibold text-slate-700 hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                >
+                  Next
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
 

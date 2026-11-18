@@ -114,7 +114,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md border-b border-brand-100 shadow-xs sticky top-0 z-50">
+    <nav className="bg-white/55 backdrop-blur-xl supports-[backdrop-filter]:bg-white/45 border-b border-brand-100/50 shadow-sm shadow-brand-950/5 sticky top-0 z-50 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
         {/* Left - Logo */}
         <button
@@ -249,7 +249,7 @@ const Navbar = () => {
       {/* Mobile panel */}
       <div
         id="mobile-nav"
-        className={`lg:hidden border-t border-brand-100 bg-white ${
+        className={`lg:hidden border-t border-brand-100/50 bg-white/80 backdrop-blur-xl ${
           mobileOpen ? "block" : "hidden"
         }`}
       >
