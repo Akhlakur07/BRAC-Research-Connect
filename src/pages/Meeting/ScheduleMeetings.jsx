@@ -12,7 +12,7 @@ import {
   Eye,
 } from "lucide-react";
 
-const API_BASE = "https://bracu-research-server-eta.vercel.app";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const ScheduleMeetings = () => {
   const { user } = useContext(AuthContext);

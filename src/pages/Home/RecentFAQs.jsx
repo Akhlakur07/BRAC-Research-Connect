@@ -11,7 +11,7 @@ const RecentFAQs = () => {
     const fetchFAQs = async () => {
       try {
         const res = await fetch(
-          "https://bracu-research-server-eta.vercel.app/faqs"
+          `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/faqs`
         );
         if (!res.ok) throw new Error("Failed to fetch FAQs");
         const data = await res.json();

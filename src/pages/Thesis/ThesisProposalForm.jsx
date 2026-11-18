@@ -25,7 +25,7 @@ const ThesisProposalForm = () => {
     const fetchGroup = async () => {
       try {
         const res = await fetch(
-          `https://bracu-research-server-eta.vercel.app/groups/by-admin/${User?._id}`
+          `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/groups/by-admin/${User?._id}`
         );
         if (res.status === 404) {
           setErrorMsg("Only group creators can submit proposals.");
@@ -57,7 +57,7 @@ const ThesisProposalForm = () => {
     const fetchSupervisors = async () => {
       try {
         const res = await fetch(
-          "https://bracu-research-server-eta.vercel.app/supervisors"
+          `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/supervisors`
         );
         if (!res.ok) throw new Error("Failed to fetch supervisors");
         const data = await res.json();
@@ -101,7 +101,7 @@ const ThesisProposalForm = () => {
 
     try {
       const res = await fetch(
-        "https://bracu-research-server-eta.vercel.app/proposals",
+        `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/proposals`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

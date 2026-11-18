@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroSection from './HeroSection';
-import ThesisWorkflow from './ThesisWorkFlow';
+import ThesisWorkflow from './ThesisWorkflow';
 import RecentFAQs from './RecentFAQs';
 import Seacrh from './Search';
 

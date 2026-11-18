@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useLoaderData } from "react-router";
 
-const API_BASE = "https://bracu-research-server-eta.vercel.app";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const Searchpaper = () => {
   const [query, setQuery] = useState("");

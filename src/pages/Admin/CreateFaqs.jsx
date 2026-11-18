@@ -15,7 +15,7 @@ const CreateFaqs = () => {
 
     try {
       const res = await fetch(
-        "https://bracu-research-server-eta.vercel.app/faqs",
+        `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/faqs`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

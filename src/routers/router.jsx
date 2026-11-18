@@ -22,6 +22,7 @@ import ViewRecievedProposals from "../pages/Thesis/ViewRecievedProposals";
 import Profile from "../pages/Student/Profile";
 import SupervisorProfile from "../pages/Supervisor/SupervisorProfile";
 import SupervisorsList from "../pages/Supervisor/SupervisorsList";
+import SynopsisList from "../pages/Synopsis/SynopsisList";
 import Searchpaper from "../pages/Student/Searchpaper";
 import Savedpapers from "../pages/Student/Savedpapers";
 import Recommended from "../pages/Student/Recommended";
@@ -32,11 +33,23 @@ import ThesisProcess from "../pages/Thesis/ThesisProcess";
 import Error from "../pages/Error/Error";
 import Search from "../pages/Home/Search";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+const safeLoader = (path) => async () => {
+  try {
+    const res = await fetch(`${API_BASE}${path}`);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
+  }
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    loader: () => fetch("https://bracu-research-server-eta.vercel.app/users/"),
+    loader: safeLoader("/users/"),
     errorElement: <Error></Error>,
     children: [
       {
@@ -58,8 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/thesis-proposal",
         Component: ThesisProposalForm,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "view-announcement",
@@ -68,18 +80,20 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         Component: Profile,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/supervisor-profile",
         Component: SupervisorProfile,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/supervisors",
         Component: SupervisorsList,
+      },
+      {
+        path: "/synopsis",
+        Component: SynopsisList,
       },
       {
         path: "/manage-users",
@@ -100,8 +114,7 @@ const router = createBrowserRouter([
       {
         path: "/announcements",
         Component: Announcement,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/admin-dashboard",
@@ -114,14 +127,12 @@ const router = createBrowserRouter([
       {
         path: "/supervisor-dashboard",
         element: <SupervisorDashboard></SupervisorDashboard>,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/student-dashboard",
         Component: StudentDashboard,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/find-group/:id",
@@ -141,8 +152,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/semester",
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
         element: (
           <AdminRoute>
             <Semester></Semester>
@@ -156,50 +166,42 @@ const router = createBrowserRouter([
       {
         path: "/view-proposals",
         Component: ViewProposals,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/supervisor-groups",
         Component: SupervisorGroups,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/view-recieved-proposals",
         Component: ViewRecievedProposals,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/search",
         Component: Searchpaper,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/saved-papers",
         Component: Savedpapers,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/recommended",
         Component: Recommended,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/schedule-meetings",
         Component: ScheduleMeetings,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/users/"),
+        loader: safeLoader("/users/"),
       },
       {
         path: "/all-thesis",
         Component: AllThesis,
-        loader: () =>
-          fetch("https://bracu-research-server-eta.vercel.app/theses"),
+        loader: safeLoader("/theses"),
       },
       {
         path: "/thesis-process",

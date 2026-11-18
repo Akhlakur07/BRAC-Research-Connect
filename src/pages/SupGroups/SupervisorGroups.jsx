@@ -3,7 +3,7 @@ import { useLoaderData, Link } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Users, FileText, Tag } from "lucide-react";
 
-const API_BASE = "https://bracu-research-server-eta.vercel.app";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const SupervisorGroups = () => {
   const { user } = useContext(AuthContext);

@@ -20,7 +20,7 @@ import {
   Columns3,
 } from "lucide-react";
 
-const API_BASE = "https://bracu-research-server-eta.vercel.app";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 function useDebouncedValue(value, delay = 150) {
   const [v, setV] = useState(value);
@@ -80,6 +80,15 @@ function buildFeatureIndex(ctx) {
       icon: <User className="w-4 h-4" />,
       description: "See all available supervisors.",
       tags: ["supervisors", "faculty", "advisor"],
+      roles: ["student", "supervisor", "admin"],
+      section: "General",
+    },
+    {
+      title: "Thesis Synopsis",
+      path: "/synopsis",
+      icon: <BookOpen className="w-4 h-4" />,
+      description: "Browse thesis topic synopses from BRACU CSE faculty.",
+      tags: ["synopsis", "synopses", "topics", "research", "bracu"],
       roles: ["student", "supervisor", "admin"],
       section: "General",
     },

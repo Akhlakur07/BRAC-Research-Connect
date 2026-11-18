@@ -19,7 +19,7 @@ const Savedpapers = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://bracu-research-server-eta.vercel.app/users/${USER_ID}/bookmarks`
+          `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/users/${USER_ID}/bookmarks`
         );
         if (!res.ok) throw new Error("Failed to fetch bookmarks");
         const data = await res.json();
@@ -42,7 +42,7 @@ const Savedpapers = () => {
 
     try {
       const res = await fetch(
-        `https://bracu-research-server-eta.vercel.app/users/${USER_ID}/bookmarks/${encodeURIComponent(
+        `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/users/${USER_ID}/bookmarks/${encodeURIComponent(
           paperId
         )}`,
         { method: "DELETE" }

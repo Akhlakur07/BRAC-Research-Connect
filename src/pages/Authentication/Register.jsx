@@ -42,7 +42,7 @@ const Register = () => {
         alert("Registration successful!");
 
         // Conditional API POST request based on role
-        const endpoint = "https://bracu-research-server-eta.vercel.app/users";
+        const endpoint = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/users`;
 
         // Prepare data to post
         const postData =

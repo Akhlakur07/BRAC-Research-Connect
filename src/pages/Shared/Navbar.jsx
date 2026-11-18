@@ -10,7 +10,7 @@ import { NavLink, useLoaderData } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Bell, Menu, X } from "lucide-react";
 
-const API_BASE = "https://bracu-research-server-eta.vercel.app";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const linkBase = "block px-4 py-2 rounded-lg transition hover:text-[#7b1e3c]";
 const linkActive = "text-[#7b1e3c] bg-[#7b1e3c]/10   :bg-[#7b1e3c]/20";
@@ -144,6 +144,8 @@ const Navbar = () => {
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-2 text-slate-700   :text-gray-300 font-medium">
           <LinkItem to="/">Home</LinkItem>
+          <LinkItem to="/supervisors">Supervisors</LinkItem>
+          <LinkItem to="/synopsis">Synopsis</LinkItem>
 
           {roleUser?.role === "student" && (
             <LinkItem to="/thesis-proposal">Proposal Submission</LinkItem>
@@ -250,6 +252,8 @@ const Navbar = () => {
       >
         <div className="px-6 py-4 space-y-2 text-slate-800   :text-gray-200 font-medium">
           <LinkItem to="/">Home</LinkItem>
+          <LinkItem to="/supervisors">Supervisors</LinkItem>
+          <LinkItem to="/synopsis">Synopsis</LinkItem>
 
           {roleUser?.role === "student" && (
             <LinkItem to="/thesis-proposal">Proposal Submission</LinkItem>
