@@ -32,6 +32,7 @@ import Semester from "../pages/Semester/Semester";
 import ThesisProcess from "../pages/Thesis/ThesisProcess";
 import Error from "../pages/Error/Error";
 import Search from "../pages/Home/Search";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -50,6 +51,12 @@ const router = createBrowserRouter([
     path: "/",
     Component: RootLayout,
     loader: safeLoader("/users/"),
+    HydrateFallback: () => (
+      <LoadingSpinner
+        fullScreen
+        message="Starting BRACU Research Connect..."
+      />
+    ),
     errorElement: <Error></Error>,
     children: [
       {

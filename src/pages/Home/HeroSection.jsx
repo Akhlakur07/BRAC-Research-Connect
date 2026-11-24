@@ -39,7 +39,7 @@ const HeroSection = () => {
       <div className="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-brand-200/60 blur-3xl animate-blob" />
       <div className="absolute top-20 -right-32 w-[26rem] h-[26rem] rounded-full bg-brand-100 blur-3xl animate-blob [animation-delay:-6s]" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 md:pt-24 pb-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-14 pb-10">
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           <div className="text-center lg:text-left animate-fade-up">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-200 text-brand-600 text-xs font-semibold shadow-sm mb-6">
@@ -120,7 +120,7 @@ const HeroSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 rounded-3xl bg-brand-600 text-white p-6 md:p-8 shadow-xl shadow-brand-600/20">
+        <div className="mt-18 grid grid-cols-2 md:grid-cols-4 gap-4 rounded-3xl bg-brand-600 text-white p-6 md:p-8 shadow-xl shadow-brand-600/20">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-3xl md:text-4xl font-extrabold font-display">{s.value}</p>
